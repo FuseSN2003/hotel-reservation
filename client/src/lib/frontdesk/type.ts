@@ -17,7 +17,7 @@ export type Reservation = {
    check_out: Date;
    display_color: string;
    transaction_status: string;
-   createAt: string;
+   created_at: string;
    current_status: string;
    types_name: string;
    capacity: number;

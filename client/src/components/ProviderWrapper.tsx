@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 
 function ProviderWrapper(prop: { children: React.ReactNode }) {

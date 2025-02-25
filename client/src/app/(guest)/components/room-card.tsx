@@ -25,7 +25,7 @@ export default function RoomCard({ type, clickHandler }: Props) {
                >
                   <Image
                      src={
-                        process.env.NEXT_PUBLIC_BACKEND_URL + type.picture_path
+                        `${process.env.NEXT_PUBLIC_BACKEND_URL}${type.picture_path || '/'}`
                      }
                      layout="fill"
                      className="object-cover rounded-l-xl"

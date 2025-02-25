@@ -34,7 +34,7 @@ export default function RoomTypeTableClient({
               <TableCell>
                 <div className="flex items-center gap-2">
                   <Image
-                    src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${roomType.picture_path}`}
+                    src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${roomType.picture_path || "/"}`}
                     alt={`${roomType.name}`}
                     width={0}
                     height={0}

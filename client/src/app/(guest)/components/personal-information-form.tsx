@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import {
   formInputs,
   specialRequest,
-} from "@/app/( guest )/model/customer-information";
+} from "@/app/(guest)/model/customer-information";
 import { ReservationContext } from "@/context/ReservationContext";
 import { useContext, useState } from "react";
 

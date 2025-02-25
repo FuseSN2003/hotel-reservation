@@ -13,14 +13,19 @@ export default function AdminSidebarMenu() {
 
   const handleLogout = async () => {
     try {
+      const token = localStorage.getItem("token");
       const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/logout`, {
         credentials: "include",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       const data = await res.json();
 
       if(data.status === "success") {
         toast.success("Logged out successfully.");
+        localStorage.removeItem("token");
         router.refresh();
         router.push("/");
       } else {

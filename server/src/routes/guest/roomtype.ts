@@ -1,10 +1,10 @@
 import { sql } from '@/libs/db';
 
-import Elysia, { t } from 'elysia';
+import Elysia from 'elysia';
 
 export const roomTypeRoutes = new Elysia({ prefix: '/rooms' }).get(
     '/room-types',
-    async ({ set }) => {
+    async () => {
         const roomTypes = await sql`SELECT * FROM room_types`;
 
         return {

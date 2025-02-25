@@ -1,12 +1,36 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import logo from '@/assets/logo.png';
+import { useQuery } from '@tanstack/react-query';
 interface GuestNavProps {
    scrollIntoView: (id: any) => void;
 }
 
 function GuestNav({ scrollIntoView }: GuestNavProps) {
    const [isOpen, setIsOpen] = useState(false);
+   const { data } = useQuery({
+      queryKey: ['current-user'],
+      queryFn: async () => {
+         const res = await fetch(
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/check-user`,
+            {
+               method: 'GET',
+               credentials: 'include',
+               headers: {
+                  Authorization: `Bearer ${localStorage.getItem('token')}`,
+               },
+            }
+         );
+         const data = await res.json();
+
+         if(!data.user) {
+            localStorage.removeItem('token');
+            return null;
+         }
+
+         return data.user;
+      },
+   });
 
    const toggleMenu = () => {
       setIsOpen(!isOpen);
@@ -103,6 +127,16 @@ function GuestNav({ scrollIntoView }: GuestNavProps) {
                            Facility
                         </a>
                      </li>
+                     {data?.role === 'administrator' && (
+                        <li>
+                           <a href="/admin">Dashboard</a>
+                        </li>
+                     )}
+                     {data?.role === 'frontdesk' && (
+                        <li>
+                           <a href="/frontdesk">Front Desk</a>
+                        </li>
+                     )}
                   </ul>
                </div>
             </div>

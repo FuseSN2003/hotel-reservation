@@ -43,9 +43,9 @@ export const reservationRoute = new Elysia({ prefix: '/reservations' }).get(
                     check_out,
                     display_color,
                     transaction_status,
-                    "createAt",
+                    created_at,
                     current_status,
-                    room_types."name" AS types_name,
+                    room_types.name AS types_name,
                     room_types.capacity,
                     room_types.detail,
                     room_types.picture_path,
@@ -53,8 +53,8 @@ export const reservationRoute = new Elysia({ prefix: '/reservations' }).get(
                     room_types.id AS type_id
                     FROM
                     rooms
-                    INNER JOIN reservations ON rooms."id" = reservations.room_id
-                    INNER JOIN room_types ON rooms.type_id = room_types."id"
+                    INNER JOIN reservations ON rooms.id = reservations.room_id
+                    INNER JOIN room_types ON rooms.type_id = room_types.id
                     INNER JOIN customer_details ON reservations.customer_id = customer_details.ID 
                     WHERE (check_in <= ${
                         query.year + '-' + query.month + '-31'
@@ -89,7 +89,7 @@ export const reservationRoute = new Elysia({ prefix: '/reservations' }).get(
             check_out,
             display_color,
             transaction_status,
-            "createAt",
+            created_at,
             current_status,
             room_types."name" AS types_name,
             room_types.capacity,

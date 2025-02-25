@@ -3,7 +3,7 @@ import Elysia from 'elysia';
 
 export const allRoomsRoute = new Elysia({ prefix: '/all-room' }).get(
     '/',
-    async ({ set }) => {
+    async () => {
         const allRooms = await sql`
             SELECT rooms.id , rooms."number" , rooms.current_status , room_types."name" , room_types.detail , room_types.capacity , room_types.price , room_types.picture_path  FROM rooms INNER JOIN room_types ON rooms.type_id = room_types.id ORDER BY room_types.name
         `;
@@ -47,7 +47,7 @@ export const allRoomsRoute = new Elysia({ prefix: '/all-room' }).get(
 
 export const allRoomTypeRoute = new Elysia({ prefix: '/all-room-type' }).get(
     '/',
-    async ({ set }) => {
+    async () => {
         const allRoomTypes = await sql`
             SELECT * FROM room_types
         `;

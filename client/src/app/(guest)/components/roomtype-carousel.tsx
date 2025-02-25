@@ -38,10 +38,9 @@ export function RoomTypeCarousel({ allroomtypes }: RoomTypeCarouselProps) {
                                             flex-grow w-full h-44 overflow-hidden rounded-t-3xl"
                               >
                                  <Image
-                                    src={
-                                       process.env.NEXT_PUBLIC_BACKEND_URL +
-                                       type.picture_path
-                                    }
+                                    src={`${
+                                       process.env.NEXT_PUBLIC_BACKEND_URL
+                                    }${type.picture_path || '/'}`}
                                     layout="fill"
                                     className="object-cover"
                                     alt={`Picture of ${type.name}`}

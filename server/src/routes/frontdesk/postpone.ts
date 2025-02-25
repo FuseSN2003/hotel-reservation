@@ -1,9 +1,9 @@
 import { sql } from '@/libs/db';
-import Elysia, { t } from 'elysia';
-import { PostponeShcema } from '@/libs/validation';
+import { getDiffDate } from '@/libs/get-diff-date';
 import getVacantRoom from '@/libs/get-vacant-room';
 import { getRandomColorToDB } from '@/libs/random-color';
-import { getDiffDate } from '@/libs/get-diff-date';
+import { PostponeShcema } from '@/libs/validation';
+import Elysia from 'elysia';
 
 export const postPoneRoute = new Elysia({ prefix: '/postpone' }).put(
     '/',

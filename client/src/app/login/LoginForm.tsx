@@ -55,12 +55,13 @@ export default function LoginForm() {
 
       setIsLoading(false);
       if (data.status === "success") {
-        toast.success(data.mesaage);
+        toast.success(data.message);
         router.push("/");
       } else {
         toast.error(data.message);
       }
     } catch (error) {
+      console.error(error);
       setIsLoading(false);
       toast.error("An error occurred.");
     }

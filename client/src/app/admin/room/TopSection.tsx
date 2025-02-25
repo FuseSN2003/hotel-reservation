@@ -7,33 +7,18 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
+import { roomStatus } from "@/lib/utils";
 import { ChevronDown } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
+import { SearchInput } from "../SearchInput";
 import AddRoomModal from "./AddRoomModal";
 import AddRoomTypeModal from "./AddRoomTypeModal";
-import { roomStatus } from "@/lib/utils";
-import { SearchInput } from "../SearchInput";
 
 export function RoomTopSection() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
-
-  const [query, setQuery] = useState<string>(searchParams.get("q") || "");
-
-  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const params = new URLSearchParams(searchParams);
-    if (query) {
-      params.set("q", query);
-    } else {
-      params.delete("q");
-    }
-    router.replace(`${pathname}?${params.toString()}`);
-  };
 
   const handleFilterStatus = (status: string) => {
     const params = new URLSearchParams(searchParams);

@@ -1,0 +1,29 @@
+services:
+  db:
+    container_name: hotel_reservation_db
+    image: postgres:15
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - 5432:5432
+    networks:
+      - hotel_network
+    volumes:
+      - hotel_reservation_db_data:/var/lib/postgresql/data
+  adminer:
+    container_name: hotel_reservation_adminer
+    image: adminer
+    ports:
+      - 8080:8080
+    networks:
+      - hotel_network
+    depends_on:
+      - db
+
+volumes:
+  hotel_reservation_db_data:
+
+networks:
+  hotel_network:
+    driver: bridge

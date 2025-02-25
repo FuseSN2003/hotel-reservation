@@ -12,14 +12,6 @@ const nextConfig = {
       },
     ],
   },
-  async rewrites() {
-    return [
-      {
-        source: '/api/:path*',
-        destination: 'https://hotel-reservation-api-ajio.onrender.com/:path*',
-      },
-    ]
-  },
 };
 
 export default nextConfig;

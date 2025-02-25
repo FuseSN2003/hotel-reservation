@@ -32,8 +32,8 @@ export const dashboardRoutes = new Elysia({ prefix: '/dashboard' })
         const [offMarketRoom] =
             await sql`SELECT COUNT(*) FROM rooms WHERE current_status = 'off_market'`;
         const revenuePerMonth = await sql`SELECT month, sum
-            FROM ( SELECT TO_CHAR("createAt", 'Month') AS month, SUM(price) FROM reservations
-            WHERE TO_CHAR(reservations."createAt", 'YYYY')=${year}
+            FROM ( SELECT TO_CHAR("created_at", 'Month') AS month, SUM(price) FROM reservations
+            WHERE TO_CHAR(reservations."created_at", 'YYYY')=${year}
             GROUP BY month) monthAndRevenue
             ORDER BY to_date(month, 'Month');`;
 

@@ -103,7 +103,7 @@ export default function Reservation_detail_modal({
             </DialogHeader>
             <div className="flex justify-center">
                <img
-                  src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${thisReservation.picture_path}`}
+                  src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${thisReservation.picture_path || '/'}`}
                   alt="room"
                   className="w-7/12 object-cover h-48 rounded-lg shadow-md"
                />

@@ -1,9 +1,8 @@
 import { sql } from '@/libs/db';
-import { getDiffDate } from '@/libs/get-diff-date';
 import getVacantRoom from '@/libs/get-vacant-room';
 import { getRandomColorToDB } from '@/libs/random-color';
 import { ChangeRoomSchema, GetVacantRoomsSchema, NewCustomerSchema } from '@/libs/validation';
-import Elysia, { t } from 'elysia';
+import Elysia from 'elysia';
 import { z } from 'zod';
 
 export const roomRoutes = new Elysia({ prefix: '/rooms' })
@@ -20,7 +19,6 @@ export const roomRoutes = new Elysia({ prefix: '/rooms' })
                 }
             }
             const { check_in, check_out } = query;
-          
             for (const roomType of roomTypes) {
                 const res = await getVacantRoom({ type_id: roomType.id, check_in: new Date(check_in), check_out: new Date(check_out)});
                 uniqueRooms.push(res);
@@ -101,7 +99,7 @@ export const roomRoutes = new Elysia({ prefix: '/rooms' })
                                 rooms."id" AS room_id
                               FROM
                                 rooms
-                                LEFT JOIN room_types ON rooms.type_id = room_types."id" 
+                                LEFT JOIN room_types ON rooms.type_id = room_types.id 
                               WHERE
                                 (
                                 SELECT
@@ -171,8 +169,6 @@ export const roomRoutes = new Elysia({ prefix: '/rooms' })
           })
         RETURNING id;
       `;
-
-      console.log(customerID.id, reservationId);
 
       await sql`
         UPDATE reservations
