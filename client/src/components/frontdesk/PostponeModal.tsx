@@ -68,9 +68,11 @@ export function PostponeModal({ thisReservation }: PostponeModalProps) {
                   name="check-out"
                   className="border border-gray-400 rounded-lg p-2"
                   value={newCheckOut}
-                  onChange={(e) => 
-                     {
-                        if(new Date(e.target.value) > new Date(newCheckOut)) {setNewCheckOut(e.target.value)}}}
+                  onChange={(e) => {
+                     if (new Date(e.target.value) > new Date(newCheckOut)) {
+                        setNewCheckOut(e.target.value);
+                     }
+                  }}
                />
             </div>
             <DialogFooterStart>

@@ -7,6 +7,7 @@ import { format } from 'date-fns';
 import { Skeleton } from '@/components/ui/skeleton';
 import { RoomType } from '@/components/interface/RoomType';
 import StepHeader from './header';
+import { getBackendURL } from '@/lib/getBackendURL';
 
 export default function Step2() {
    const { addInformation, information, state, setState } =
@@ -28,7 +29,7 @@ export default function Step2() {
 
       if (!information.reservationId) {
          const response = await fetch(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL}/guest/rooms/preserve`,
+            `${getBackendURL()}/guest/rooms/preserve`,
             {
                method: 'POST',
                body: formData,
@@ -54,7 +55,7 @@ export default function Step2() {
          formData.append('total_price', type.total_price);
 
          const response = await fetch(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL}/guest/rooms/change-type`,
+            `${getBackendURL()}/guest/rooms/change-type`,
             {
                method: 'POST',
                body: formData,
@@ -86,7 +87,7 @@ export default function Step2() {
         const checkOut = new Date(dateRange.to).toLocaleDateString();
 
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/guest/rooms/vacant-rooms?check_in=${checkIn}&check_out=${checkOut}`,
+          `${getBackendURL()}/guest/rooms/vacant-rooms?check_in=${checkIn}&check_out=${checkOut}`,
           {
             method: "GET",
             headers: {

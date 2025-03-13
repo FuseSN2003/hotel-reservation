@@ -25,6 +25,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { getBackendURL } from "@/lib/getBackendURL";
 import { Employee, employeeRole } from "@/lib/type";
 import { formatDate } from "@/lib/utils";
 import { EditAccountEmployeeSchema, EditAccountEmployeeValues } from "@/lib/validation";
@@ -58,7 +59,7 @@ export default function EditAccountModal({ employee }: EditAccountModalprops) {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState<string>(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}${employee.profile_picture}`
+    `${getBackendURL()}${employee.profile_picture}`
   );
   const [isLoading, setIsLoading] = useState(false);
 
@@ -71,7 +72,7 @@ export default function EditAccountModal({ employee }: EditAccountModalprops) {
     setIsLoading(true);
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/admin/employees/${employee.id}`,
+        `${getBackendURL()}/admin/employees/${employee.id}`,
         {
           method: "PUT",
           credentials: "include",

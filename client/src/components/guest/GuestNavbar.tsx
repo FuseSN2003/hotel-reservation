@@ -2,17 +2,19 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import logo from '@/assets/logo.png';
 import { useQuery } from '@tanstack/react-query';
-interface GuestNavProps {
+import { getBackendURL } from '@/lib/getBackendURL';
+
+interface GuestNavbarProps {
    scrollIntoView: (id: any) => void;
 }
 
-function GuestNav({ scrollIntoView }: GuestNavProps) {
+function GuestNavbar({ scrollIntoView }: GuestNavbarProps) {
    const [isOpen, setIsOpen] = useState(false);
    const { data } = useQuery({
       queryKey: ['current-user'],
       queryFn: async () => {
          const res = await fetch(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/check-user`,
+            `${getBackendURL()}/auth/check-user`,
             {
                method: 'GET',
                credentials: 'include',
@@ -23,7 +25,7 @@ function GuestNav({ scrollIntoView }: GuestNavProps) {
          );
          const data = await res.json();
 
-         if(!data.user) {
+         if (!data.user) {
             localStorage.removeItem('token');
             return null;
          }
@@ -145,4 +147,4 @@ function GuestNav({ scrollIntoView }: GuestNavProps) {
    );
 }
 
-export default GuestNav;
+export default GuestNavbar;

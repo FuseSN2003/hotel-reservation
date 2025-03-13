@@ -257,16 +257,6 @@ export const employeeRoutes = new Elysia({ prefix: '/employees' })
             };
         }
         
-        if(employee.profile_picture) {
-            const path = join(
-                '.',
-                process.env.UPLOAD_FOLDER!,
-                employee.profile_picture.split('/').pop()
-            );
-
-            await unlink(path);
-        }
-        
         await sql`DELETE FROM employees WHERE id=${id}`;
 
         return {

@@ -23,6 +23,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { getBackendURL } from "@/lib/getBackendURL";
 import { RoomSchema, RoomValues } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
@@ -49,7 +50,7 @@ export default function AddRoomModal() {
     setIsLoading(true);
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/admin/rooms`,
+        `${getBackendURL()}/admin/rooms`,
         {
           method: "POST",
           credentials: "include",
@@ -80,7 +81,7 @@ export default function AddRoomModal() {
   useEffect(() => {
     async function fetchTypeRoom() {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/admin/room-types`,
+        `${getBackendURL()}/admin/room-types`,
         {
           credentials: "include",
         }

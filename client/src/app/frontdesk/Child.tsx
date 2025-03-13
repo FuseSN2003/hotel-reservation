@@ -1,10 +1,10 @@
 'use client';
 
-import AllRoomTable from '@/components/frontdesk/allroom-table';
-import Frontdesk_Header from '@/components/frontdesk/header';
-import ReservationTable from '@/components/frontdesk/reservation-table';
-import Skeleton_header from '@/components/frontdesk/skeleton_header';
-import Skeleton_table from '@/components/frontdesk/skeleton_table';
+import AllRoomTable from '@/components/frontdesk/AllRoomTable';
+import FrontdeskHeader from '@/components/frontdesk/FrontDeskHeader';
+import ReservationTable from '@/components/frontdesk/ReservationTable';
+import SkeletonHeader from '@/components/frontdesk/SkeletonHeader';
+import SkeletonTable from '@/components/frontdesk/SkeletonTable';
 import { FrontDesk } from '@/context/front-desk';
 import { useContext } from 'react';
 
@@ -39,9 +39,9 @@ export default function Child() {
       <div>
          <main className="p-3 ">
             {roomsLoading || roomsTypeLoading ? (
-               <Skeleton_header />
+               <SkeletonHeader />
             ) : (
-               <Frontdesk_Header />
+               <FrontdeskHeader />
             )}
             {reservationError || roomsError || roomsTypeError ? (
                <div className="w-full flex justify-center">
@@ -51,7 +51,7 @@ export default function Child() {
                </div>
             ) : null}
             {reservationLoading || roomsLoading || roomsTypeLoading ? (
-               <Skeleton_table />
+               <SkeletonTable />
             ) : (
                <div className="relative w-full ">
                   <AllRoomTable />

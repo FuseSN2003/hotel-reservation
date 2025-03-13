@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
+import { getBackendURL } from "@/lib/getBackendURL";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -27,7 +28,7 @@ export default function DeleteRoomModal({ roomId }: DeleteRoomModalProps) {
     try {
       setIsLoading(true);
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/admin/rooms/${roomId}`,
+        `${getBackendURL()}/admin/rooms/${roomId}`,
         {
           method: "DELETE",
           credentials: "include",

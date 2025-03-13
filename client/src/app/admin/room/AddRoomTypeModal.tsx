@@ -19,6 +19,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { getBackendURL } from "@/lib/getBackendURL";
 import { AddRoomTypeSchema, AddRoomTypeValues } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
@@ -53,7 +54,7 @@ export default function AddRoomTypeModal() {
     setIsLoading(true);
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/admin/room-types`,
+        `${getBackendURL()}/admin/room-types`,
         {
           method: "POST",
           credentials: "include",

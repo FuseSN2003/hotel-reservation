@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS reservations (
     check_out DATE NOT NULL,
     display_color VARCHAR,
     transaction_status transaction_status DEFAULT 'preserve'::public.transaction_status,
-    created_at DATE DEFAULT CURRENT_DATE,
+    created_at TIMESTAMPTZ DEFAULT CURRENT_DATE,
     stripe_session_id VARCHAR ,
     create_time TIME DEFAULT CURRENT_TIME
 );

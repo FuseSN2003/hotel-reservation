@@ -1,15 +1,15 @@
-import { Elysia } from 'elysia';
 import cors from '@elysiajs/cors';
+import { swagger } from '@elysiajs/swagger';
+import { Elysia } from 'elysia';
+import postgres from 'postgres';
 import { adminRoutes } from './routes/admin';
+import { authRoutes } from './routes/auth-route';
+import { crontab } from './routes/crontab';
 import { fileRoute } from './routes/file-route';
 import { frontdeskRoute } from './routes/frontdesk';
-import { reservationRoute } from './routes/reservation';
-import { swagger } from '@elysiajs/swagger';
-import postgres from 'postgres';
 import { guestRoutes } from './routes/guest';
+import { reservationRoute } from './routes/reservation';
 import { stripeRoutes } from './routes/stripe';
-import { crontab } from './routes/crontab';
-import { authRoutes } from './routes/auth-route';
 
 const port = process.env.PORT || 3001;
 
@@ -44,7 +44,8 @@ export const app = new Elysia()
     .use(crontab)
     .use(authRoutes)
     .use(cors({
-        origin: ['http://localhost:3000', 'https://hotel-reservation-theta.vercel.app']
+        origin: ['http://localhost:3000'],
+        credentials: true,
     }))
     .listen(port);
 

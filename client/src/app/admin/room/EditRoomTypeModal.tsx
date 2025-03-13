@@ -20,6 +20,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { getBackendURL } from '@/lib/getBackendURL';
 import { RoomType } from '@/lib/type';
 import { EditRoomTypeSchema, EditRoomTypeValues } from '@/lib/validation';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -48,7 +49,7 @@ export default function EditRoomTypeModal({
       },
    });
    const [previewImage, setPreviewImage] = useState<string | null>(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}${roomType.picture_path || '/'}`
+      `http://localhost:3001${roomType.picture_path || '/'}`
    );
    const [isModalOpen, setIsModalOpen] = useState(false);
    const [isLoading, setIsLoading] = useState(false);
@@ -63,7 +64,7 @@ export default function EditRoomTypeModal({
       setIsLoading(true);
       try {
          const res = await fetch(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL}/admin/room-types/${roomType.id}`,
+            `${getBackendURL()}/admin/room-types/${roomType.id}`,
             {
                method: 'PUT',
                credentials: 'include',
@@ -112,9 +113,7 @@ export default function EditRoomTypeModal({
                            <Image
                               src={previewImage || ImagePlaceholder}
                               alt="Room type image"
-                              width={0}
-                              height={0}
-                              sizes="100vw"
+                              unoptimized
                               className="w-full aspect-video"
                               priority
                            />

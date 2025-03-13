@@ -206,15 +206,8 @@ export const roomTypeRoutes = new Elysia({ prefix: '/room-types' })
                 message: 'Room type not found',
             };
         }
-        const path = join(
-            '.',
-            process.env.UPLOAD_FOLDER!,
-            roomType.picture_path.split('/').pop()
-        );
 
         await sql`DELETE FROM room_types WHERE id=${roomType.id}`;
-
-        await unlink(path);
 
         return {
             status: 'success',

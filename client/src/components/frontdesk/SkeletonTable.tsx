@@ -1,7 +1,7 @@
 import React from 'react';
 import { Skeleton } from '../ui/skeleton';
 
-function Skeleton_table() {
+function SkeletonTable() {
    return (
       <div>
          <Skeleton className="mt-3 h-20 w-full rounded-xl" />
@@ -22,4 +22,4 @@ function Skeleton_table() {
    );
 }
 
-export default Skeleton_table;
+export default SkeletonTable;

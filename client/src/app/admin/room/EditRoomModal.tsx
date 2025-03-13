@@ -32,6 +32,7 @@ import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { RoomSchema, RoomValues } from "@/lib/validation";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
+import { getBackendURL } from "@/lib/getBackendURL";
 
 interface EditRoomModalProps {
   roomId: string;
@@ -57,7 +58,7 @@ export default function EditRoomModal({ roomId, roomNumber, roomTypeName }: Edit
     try {
       setIsLoading(true);
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/admin/rooms/${roomId}`,
+        `${getBackendURL()}/admin/rooms/${roomId}`,
         {
           method: "PUT",
           credentials: "include",
@@ -87,7 +88,7 @@ export default function EditRoomModal({ roomId, roomNumber, roomTypeName }: Edit
   useEffect(() => {
     async function fetchTypeRoom() {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/admin/room-types`,
+        `${getBackendURL()}/admin/room-types`,
         {
           credentials: "include",
         }

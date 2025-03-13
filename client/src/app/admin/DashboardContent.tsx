@@ -3,6 +3,7 @@ import { BedSingle, Coins, NotepadText, UserRound } from "lucide-react";
 import { headers } from "next/headers";
 import React from 'react'
 import RevenueChart from "./RevenueChart";
+import { getBackendURL } from "@/lib/getBackendURL";
 
 interface DashboardData {
   totalBooking: number;
@@ -22,7 +23,7 @@ async function getDashboardData(): Promise<
     }
 > {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/admin/dashboard`,
+    `${getBackendURL()}/admin/dashboard`,
     {
       headers: headers(),
       cache: "no-store"

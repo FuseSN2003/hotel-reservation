@@ -4,6 +4,7 @@ import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { getBackendURL } from "@/lib/getBackendURL";
 import { PasswordMatchSchema, PasswordMatchValues } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
@@ -29,7 +30,7 @@ export default function ResetPasswordModal({ employeeId }: ResetPasswordModalPro
   const handleResetPassword = async (values: PasswordMatchValues) => {
     setIsLoading(true);
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/admin/reset-password/${employeeId}`, {
+      const res = await fetch(`${getBackendURL()}/admin/reset-password/${employeeId}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

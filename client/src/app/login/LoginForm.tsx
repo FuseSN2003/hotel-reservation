@@ -10,6 +10,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { getBackendURL } from "@/lib/getBackendURL";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -40,7 +41,7 @@ export default function LoginForm() {
     try {
       setIsLoading(true);
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`,
+        `${getBackendURL()}/auth/login`,
         {
           method: "POST",
           credentials: "include",

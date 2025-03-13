@@ -15,7 +15,7 @@ import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { useContext } from 'react';
 import { FrontDesk } from '@/context/front-desk';
 
-export default function Frontdesk_Header() {
+export default function FrontdeskHeader() {
    const {
       roomType,
       setRoomType,

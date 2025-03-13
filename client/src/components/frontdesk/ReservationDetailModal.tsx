@@ -19,8 +19,9 @@ import { Reservation } from '@/lib/frontdesk/type';
 import { Badge } from '../ui/badge';
 import { useCheckInMutation } from '@/hooks/frontdesk/check-in';
 import { useCheckOutMutation } from '@/hooks/frontdesk/check-out';
-import { PostponeModal } from './postpone-modal';
+import { PostponeModal } from './PostponeModal';
 import { LoaderCircle } from 'lucide-react';
+import { getBackendURL } from '@/lib/getBackendURL';
 
 interface Reservation_detail_modalProps {
    thisReservation: Reservation;
@@ -103,7 +104,7 @@ export default function Reservation_detail_modal({
             </DialogHeader>
             <div className="flex justify-center">
                <img
-                  src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${thisReservation.picture_path || '/'}`}
+                  src={`${getBackendURL()}${thisReservation.picture_path || '/'}`}
                   alt="room"
                   className="w-7/12 object-cover h-48 rounded-lg shadow-md"
                />

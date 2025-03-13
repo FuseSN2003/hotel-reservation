@@ -7,6 +7,7 @@ import {
    CarouselPrevious,
 } from '@/components/ui/carousel';
 import { RoomType } from '@/lib/frontdesk/type';
+import { getBackendURL } from '@/lib/getBackendURL';
 import Image from 'next/image';
 interface RoomTypeCarouselProps {
    allroomtypes: RoomType[];
@@ -38,10 +39,9 @@ export function RoomTypeCarousel({ allroomtypes }: RoomTypeCarouselProps) {
                                             flex-grow w-full h-44 overflow-hidden rounded-t-3xl"
                               >
                                  <Image
-                                    src={`${
-                                       process.env.NEXT_PUBLIC_BACKEND_URL
-                                    }${type.picture_path || '/'}`}
+                                    src={`http://localhost:3001${type.picture_path || '/'}`}
                                     layout="fill"
+                                    unoptimized
                                     className="object-cover"
                                     alt={`Picture of ${type.name}`}
                                  />

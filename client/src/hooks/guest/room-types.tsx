@@ -1,10 +1,11 @@
 'use client';
-import { toast } from 'sonner';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+
+import { getBackendURL } from '@/lib/getBackendURL';
+import { useQuery } from '@tanstack/react-query';
 
 const FetchAllRoomTypes = async () => {
    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/guest/rooms/room-types`,
+      `${getBackendURL()}/guest/rooms/room-types`,
       {
          method: 'GET',
          headers: {

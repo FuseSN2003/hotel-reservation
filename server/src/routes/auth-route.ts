@@ -4,7 +4,7 @@ import { loginSchema } from '@/libs/validation';
 import Elysia from 'elysia';
 
 export const authRoutes = new Elysia({ prefix: '/auth' })
-    .post('/login', async ({ set, cookie, body }) => {
+    .post('/login', async ({ set, cookie, body, headers }) => {
         const validate = loginSchema.safeParse(body);
 
         if (!validate.success) {

@@ -1,6 +1,7 @@
 import { Employee } from "@/lib/type";
 import { headers } from "next/headers";
 import EmployeeTableClient from "./EmployeeTableClient";
+import { getBackendURL } from "@/lib/getBackendURL";
 
 async function getEmployees(
   query: string
@@ -11,7 +12,7 @@ async function getEmployees(
     q: query,
   })
 
-  const res  = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/admin/employees?${searchParams.toString()}`, {
+  const res  = await fetch(`${getBackendURL()}/admin/employees?${searchParams.toString()}`, {
     headers: headers(),
     cache: "no-store"
   });

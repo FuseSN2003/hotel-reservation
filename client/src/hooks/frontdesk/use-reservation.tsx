@@ -1,10 +1,12 @@
 'use client';
+
 import { useQuery } from '@tanstack/react-query';
 import { Reservation, allRooms } from '@/lib/frontdesk/type';
+import { getBackendURL } from '@/lib/getBackendURL';
 
 const FetchAllRooms = async () => {
    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/frontdesk/all-room`
+      `${getBackendURL()}/frontdesk/all-room`
    );
 
    const data = await res.json();
@@ -14,7 +16,7 @@ const FetchAllRooms = async () => {
 
 const FetchAllType = async () => {
    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/frontdesk/all-room-type`
+      `${getBackendURL()}/frontdesk/all-room-type`
    );
 
    const data = await res.json();
@@ -28,7 +30,7 @@ const FetchReservationData = async (
    fullname: string
 ) => {
    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/frontdesk/reservations?year=${year}&month=${month}&fullname=${fullname}
+      `${getBackendURL()}/frontdesk/reservations?year=${year}&month=${month}&fullname=${fullname}
       `
    );
 

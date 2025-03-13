@@ -24,6 +24,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { getBackendURL } from "@/lib/getBackendURL";
 import { employeeRole } from "@/lib/type";
 import { CreateAccountEmployeeSchema, CreateAccountEmployeeValues } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -65,7 +66,7 @@ export default function CreateAccountModal() {
     setIsLoading(true);
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/admin/employees`,
+        `${getBackendURL()}/admin/employees`,
         {
           method: "POST",
           credentials: "include",

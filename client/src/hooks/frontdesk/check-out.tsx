@@ -1,6 +1,8 @@
 'use client';
+
 import { toast } from 'sonner';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { getBackendURL } from '@/lib/getBackendURL';
 
 export const useCheckOutMutation = () => {
    const queryClient = useQueryClient();
@@ -8,7 +10,7 @@ export const useCheckOutMutation = () => {
    return useMutation({
       mutationFn: async (id: string) => {
          const res = await fetch(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL}/frontdesk/check-out/${id}`,
+            `${getBackendURL()}/frontdesk/check-out/${id}`,
             {
                method: 'PATCH',
                headers: {

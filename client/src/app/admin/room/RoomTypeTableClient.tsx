@@ -8,6 +8,7 @@ import { MoreHorizontal } from "lucide-react";
 import Image from "next/image";
 import DeleteRoomTypeModal from "./DeleteRoomTypeModal";
 import EditRoomTypeModal from "./EditRoomTypeModal";
+import { getBackendURL } from "@/lib/getBackendURL";
 
 interface RoomTypeTableClientProps {
   roomTypes: RoomType[];
@@ -34,18 +35,15 @@ export default function RoomTypeTableClient({
               <TableCell>
                 <div className="flex items-center gap-2">
                   <Image
-                    src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${roomType.picture_path || "/"}`}
+                    src={`http://localhost:3001${roomType.picture_path}`}
                     alt={`${roomType.name}`}
-                    width={0}
-                    height={0}
-                    sizes="100vw"
                     className="w-48 aspect-video"
-                    priority
+                    unoptimized
+                    loading="lazy"
                   />
-                  <span className="break-all">{roomType.name}</span>
                 </div>
               </TableCell>
-              <TableCell className="break-all">{roomType.detail}</TableCell>
+              <TableCell className="break-all">{roomType.name}: {roomType.detail}</TableCell>
               <TableCell>{roomType.price}฿/night</TableCell>
               <TableCell>{roomType.capacity}</TableCell>
               <TableCell>

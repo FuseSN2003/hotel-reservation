@@ -1,6 +1,7 @@
 import { headers } from "next/headers";
 import RoomTableClient from "./RoomTableClient";
 import { Room } from "@/lib/type";
+import { getBackendURL } from "@/lib/getBackendURL";
 
 async function getRooms(
   query: string,
@@ -14,7 +15,7 @@ async function getRooms(
   });
   const res = await fetch(
     `${
-      process.env.NEXT_PUBLIC_BACKEND_URL
+      getBackendURL()
     }/admin/rooms?${searchParams.toString()}`,
     {
       headers: headers(),

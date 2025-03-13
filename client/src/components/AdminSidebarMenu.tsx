@@ -1,5 +1,6 @@
 "use client";
 
+import { getBackendURL } from "@/lib/getBackendURL";
 import { adminMenu } from "@/lib/menu";
 import { cn } from "@/lib/utils";
 import { LogOut } from "lucide-react";
@@ -13,12 +14,8 @@ export default function AdminSidebarMenu() {
 
   const handleLogout = async () => {
     try {
-      const token = localStorage.getItem("token");
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/logout`, {
+      const res = await fetch(`${getBackendURL()}/auth/logout`, {
         credentials: "include",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
       });
 
       const data = await res.json();

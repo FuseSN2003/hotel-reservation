@@ -16,6 +16,7 @@ import {
 import { ArrowDown } from "lucide-react";
 import { ArrowUp } from "lucide-react";
 import { LoaderCircle } from "lucide-react";
+import { getBackendURL } from "@/lib/getBackendURL";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!);
 
@@ -37,7 +38,7 @@ export default function Step4() {
     const totalPrice = roomType.total_price;
 
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/stripe/checkout`,
+      `${getBackendURL()}/stripe/checkout`,
       {
         method: "POST",
         headers: {
@@ -52,7 +53,7 @@ export default function Step4() {
       }
     );
 
-    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/guest/rooms/customer`, {
+    await fetch(`${getBackendURL()}/guest/rooms/customer`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

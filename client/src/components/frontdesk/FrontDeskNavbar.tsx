@@ -12,35 +12,39 @@ import {
    DropdownMenuSeparator,
    DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { getBackendURL } from '@/lib/getBackendURL';
 import { User } from '@/lib/type';
 import { LogOut } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 
-interface Frontdesk_NavProps {
+interface FrontDeskNavbar {
    user: User;
 }
 
-export default function Frontdesk_Nav({ user }: Frontdesk_NavProps) {
+export default function FrontDeskNavbar({ user }: FrontDeskNavbar) {
    const router = useRouter();
-   
+
    const logout = async () => {
       try {
-         const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/logout`, {
-            credentials: 'include',
-         })
+         const res = await fetch(
+            `${getBackendURL()}/auth/logout`,
+            {
+               credentials: 'include',
+            }
+         );
 
          const data = await res.json();
 
-         if(data.status === "success") {
+         if (data.status === 'success') {
             router.refresh();
             toast.success(data.message);
          } else {
             toast.error(data.message);
          }
       } catch {
-         toast.error("An error occurred.");
+         toast.error('An error occurred.');
       }
    };
 
@@ -75,7 +79,7 @@ export default function Frontdesk_Nav({ user }: Frontdesk_NavProps) {
                      >
                         <Avatar className="w-14 h-14">
                            <AvatarImage
-                              src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${user.profile_picture}`}
+                              src={`http://localhost:3001${user.profile_picture}`}
                               alt="Front Desk"
                            />
                            <AvatarFallback>FD</AvatarFallback>

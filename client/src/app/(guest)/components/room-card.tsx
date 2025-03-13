@@ -4,6 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { ReservationContext } from '@/context/ReservationContext';
 import { useContext } from 'react';
 import Image from 'next/image';
+import { getBackendURL } from '@/lib/getBackendURL';
 
 type Props = {
    type: RoomType;
@@ -25,9 +26,10 @@ export default function RoomCard({ type, clickHandler }: Props) {
                >
                   <Image
                      src={
-                        `${process.env.NEXT_PUBLIC_BACKEND_URL}${type.picture_path || '/'}`
+                        `http://localhost:3001${type.picture_path || '/'}`
                      }
                      layout="fill"
+                     unoptimized
                      className="object-cover rounded-l-xl"
                      alt={`Picture of ${type.type_name}`}
                   />

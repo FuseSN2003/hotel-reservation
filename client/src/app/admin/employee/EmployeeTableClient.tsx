@@ -17,6 +17,7 @@ import DeleteEmployeeModal from "./DeleteEmployeeModal";
 import EditAccountModal from "./EditAccountModal";
 import ResetPasswordModal from "./ResetPasswordModal";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { getBackendURL } from "@/lib/getBackendURL";
 
 interface EmployeeTableClientProps {
   employees: Employee[];
@@ -42,7 +43,7 @@ export default function EmployeeTableClient({
               <TableCell>
               <div className="flex gap-2">
                 <Avatar className="size-28">
-                  <AvatarImage src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${employee.profile_picture}`}/>
+                  <AvatarImage src={`http://localhost:3001${employee.profile_picture}`}/>
                   <AvatarFallback>{employee.first_name[0]}</AvatarFallback>
                 </Avatar>
               <div className="space-y-2">

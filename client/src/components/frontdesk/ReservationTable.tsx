@@ -7,7 +7,7 @@ import {
    TableBody,
    TableCell,
 } from '@/components/ui/table';
-import Reservation_detail_modal from './reservation-detail-modal';
+import Reservation_detail_modal from './ReservationDetailModal';
 import { FrontDesk } from '@/context/front-desk';
 import { allRooms, Reservation, Room } from '@/lib/frontdesk/type';
 export default function ReservationTable() {

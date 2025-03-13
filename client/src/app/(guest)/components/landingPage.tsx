@@ -1,4 +1,4 @@
-import GuestNav from '@/components/guest/Nav';
+import GuestNav from '@/components/guest/GuestNavbar';
 import React from 'react';
 import Image from 'next/image';
 import landingpic from '@/assets/landingpic.jpg';
@@ -8,7 +8,7 @@ import spa from '@/assets/spa.jpg';
 import rooftop from '@/assets/rooftop.jpg';
 import Step1 from './step-1-select-date';
 import { RoomTypeCarousel } from './roomtype-carousel';
-import GuestFooter from '@/components/guest/footer';
+import GuestFooter from '@/components/guest/GuestFooter';
 import { UseAllRoomTypes } from '@/hooks/guest/room-types';
 import { FacilityCard } from './facility-card';
 

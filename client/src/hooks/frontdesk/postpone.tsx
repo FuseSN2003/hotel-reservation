@@ -1,7 +1,9 @@
 'use client';
+
 import { toast } from 'sonner';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { loadStripe } from '@stripe/stripe-js';
+import { getBackendURL } from '@/lib/getBackendURL';
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!);
 
@@ -22,7 +24,7 @@ export const usePostPoneMutation = () => {
          email: string;
       }) => {
          const res = await fetch(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL}/frontdesk/postpone/`,
+            `${getBackendURL()}/frontdesk/postpone/`,
             {
                body: JSON.stringify({
                   reservationID,
@@ -42,7 +44,7 @@ export const usePostPoneMutation = () => {
 
             const stripe = await stripePromise;
             const response = await fetch(
-               `${process.env.NEXT_PUBLIC_BACKEND_URL}/stripe/checkout`,
+               `${getBackendURL()}/stripe/checkout`,
                {
                  method: "POST",
                  headers: {

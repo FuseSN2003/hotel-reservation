@@ -1,7 +1,7 @@
 import React from 'react';
 import { Skeleton } from '../ui/skeleton';
 
-function Skeleton_header() {
+function SkeletonHeader() {
    return (
       <div>
          <div className="flex justify-between">
@@ -22,4 +22,4 @@ function Skeleton_header() {
    );
 }
 
-export default Skeleton_header;
+export default SkeletonHeader;

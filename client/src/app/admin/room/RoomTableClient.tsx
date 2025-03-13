@@ -23,6 +23,7 @@ import { useRouter } from 'next/navigation';
 import DeleteRoomModal from './DeleteRoomModal';
 import EditRoomModal from './EditRoomModal';
 import { toast } from 'sonner';
+import { getBackendURL } from '@/lib/getBackendURL';
 
 interface RoomTableProps {
    rooms: Room[];
@@ -34,7 +35,7 @@ export default function RoomTableClient({ rooms }: RoomTableProps) {
    const handleChangeStatus = async (status: string, roomId: string) => {
       try {
          const res = await fetch(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL}/admin/rooms/status`,
+            `${getBackendURL()}/admin/rooms/status`,
             {
                method: 'PATCH',
                headers: {
@@ -73,13 +74,11 @@ export default function RoomTableClient({ rooms }: RoomTableProps) {
                      <TableCell>
                         <div className="flex items-center gap-2">
                            <Image
-                              src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${
+                              src={`http://localhost:3001${
                                  room.picture_path ? room.picture_path : '/'
                               }`}
                               alt={`room-number-${room.number}`}
-                              width={0}
-                              height={0}
-                              sizes="100vw"
+                              unoptimized
                               className="w-32 aspect-video"
                               priority
                            />
