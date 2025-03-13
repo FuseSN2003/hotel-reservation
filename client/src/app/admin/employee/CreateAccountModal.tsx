@@ -1,5 +1,5 @@
-import ImagePlaceholder from "@/assets/image-square-placeholder.png";
-import { Button } from "@/components/ui/button";
+import ImagePlaceholder from '@/assets/image-square-placeholder.png';
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -7,46 +7,48 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from '@/components/ui/dialog';
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { getBackendURL } from "@/lib/getBackendURL";
-import { employeeRole } from "@/lib/type";
-import { CreateAccountEmployeeSchema, CreateAccountEmployeeValues } from "@/lib/validation";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2 } from "lucide-react";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useRef, useState } from "react";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
+} from '@/components/ui/select';
+import { employeeRole } from '@/lib/type';
+import {
+  CreateAccountEmployeeSchema,
+  CreateAccountEmployeeValues,
+} from '@/lib/validation';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Loader2 } from 'lucide-react';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useRef, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
 export default function CreateAccountModal() {
   const form = useForm<CreateAccountEmployeeValues>({
     resolver: zodResolver(CreateAccountEmployeeSchema),
     defaultValues: {
-      username: "",
-      first_name: "",
-      last_name: "",
-      date_of_birth: "",
-      password: "",
-      confirm_password: "",
-      role: "frontdesk",
-      phone_number: "",
+      username: '',
+      first_name: '',
+      last_name: '',
+      date_of_birth: '',
+      password: '',
+      confirm_password: '',
+      role: 'frontdesk',
+      phone_number: '',
       image: undefined,
     },
   });
@@ -61,24 +63,24 @@ export default function CreateAccountModal() {
     if (!formRef.current) return;
 
     const formData = new FormData(formRef.current);
-    formData.append("role", form.getValues("role"));
+    formData.append('role', form.getValues('role'));
 
     setIsLoading(true);
     try {
       const res = await fetch(
-        `${getBackendURL()}/admin/employees`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/admin/employees`,
         {
-          method: "POST",
-          credentials: "include",
+          method: 'POST',
+          credentials: 'include',
           body: formData,
         }
       );
-  
+
       const data = await res.json();
-      
+
       setIsLoading(false);
-      
-      if (data.status === "success") {
+
+      if (data.status === 'success') {
         form.reset();
         toast.success(data.message);
         router.refresh();
@@ -88,7 +90,7 @@ export default function CreateAccountModal() {
       }
     } catch (e) {
       setIsLoading(false);
-      toast.error("An error occurred.");
+      toast.error('An error occurred.');
     }
   };
 
@@ -118,7 +120,7 @@ export default function CreateAccountModal() {
                     src={previewImage || ImagePlaceholder}
                     alt="Room type image"
                     width={0}
-                    height={0} 
+                    height={0}
                     sizes="100vw"
                     className="w-full max-h-80 h-full"
                   />
@@ -160,7 +162,7 @@ export default function CreateAccountModal() {
                         <FormControl>
                           <Input placeholder="Username" {...field} />
                         </FormControl>
-                        <FormMessage/>
+                        <FormMessage />
                       </FormItem>
                     )}
                   />
@@ -171,7 +173,11 @@ export default function CreateAccountModal() {
                       <FormItem>
                         <Label>Password</Label>
                         <FormControl>
-                          <Input placeholder="Password" type="password" {...field} />
+                          <Input
+                            placeholder="Password"
+                            type="password"
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -184,7 +190,11 @@ export default function CreateAccountModal() {
                       <FormItem>
                         <Label>Confirm Password</Label>
                         <FormControl>
-                          <Input placeholder="Confirm password" type="password" {...field} />
+                          <Input
+                            placeholder="Confirm password"
+                            type="password"
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -248,7 +258,10 @@ export default function CreateAccountModal() {
                     render={({ field }) => (
                       <FormItem>
                         <Label>Role</Label>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
                           <FormControl>
                             <SelectTrigger>
                               <SelectValue {...field} />
@@ -257,7 +270,9 @@ export default function CreateAccountModal() {
                           <SelectContent>
                             {employeeRole.map((role, idx) => (
                               <SelectItem value={role} key={idx}>
-                                {role.replaceAll("_", " ").replace(/\b\w/g, (c) => c.toUpperCase())}
+                                {role
+                                  .replaceAll('_', ' ')
+                                  .replace(/\b\w/g, (c) => c.toUpperCase())}
                               </SelectItem>
                             ))}
                           </SelectContent>
@@ -267,9 +282,20 @@ export default function CreateAccountModal() {
                     )}
                   />
                   <Button className="w-full" type="submit">
-                    {isLoading ? <Loader2 className="animate-spin" /> : `Create Account` }
+                    {isLoading ? (
+                      <Loader2 className="animate-spin" />
+                    ) : (
+                      `Create Account`
+                    )}
                   </Button>
-                  <Button type="button" onClick={() => setIsModalOpen(false)} variant="outline" className="w-full">Cancel</Button>
+                  <Button
+                    type="button"
+                    onClick={() => setIsModalOpen(false)}
+                    variant="outline"
+                    className="w-full"
+                  >
+                    Cancel
+                  </Button>
                 </div>
               </form>
             </Form>

@@ -3,27 +3,27 @@ import Elysia, { t } from 'elysia';
 import { SearchReservationSchema } from '@/libs/validation';
 
 export const reservationRoute = new Elysia({ prefix: '/reservations' }).get(
-    '/',
-    async ({ query, set }) => {
-        query: t.Object({
-            year: t.String(),
-            month: t.String(),
-            fullname: t.String(),
-        });
-        const validateData = SearchReservationSchema.safeParse(query);
+  '/',
+  async ({ query, set }) => {
+    query: t.Object({
+      year: t.String(),
+      month: t.String(),
+      fullname: t.String(),
+    });
+    const validateData = SearchReservationSchema.safeParse(query);
 
-        if (!validateData.success) {
-            set.status = 400;
-            return {
-                status: 'error',
-                message: validateData.error.errors[0].message,
-            };
-        }
+    if (!validateData.success) {
+      set.status = 400;
+      return {
+        status: 'error',
+        message: validateData.error.errors[0].message,
+      };
+    }
 
-        const { year, month, fullname } = validateData.data;
+    const { year, month, fullname } = validateData.data;
 
-        if (!fullname) {
-            const reservations = await sql`SELECT
+    if (!fullname) {
+      const reservations = await sql`SELECT
                     reservations.id AS reservations_id,
                     customer_id,
                     customer_details.first_name,
@@ -57,19 +57,19 @@ export const reservationRoute = new Elysia({ prefix: '/reservations' }).get(
                     INNER JOIN room_types ON rooms.type_id = room_types.id
                     INNER JOIN customer_details ON reservations.customer_id = customer_details.ID 
                     WHERE (check_in <= ${
-                        query.year + '-' + query.month + '-31'
+                      query.year + '-' + query.month + '-31'
                     } AND check_out >= ${
-                query.year + '-' + query.month + '-01'
-            }) AND reservations.transaction_status = 'complete'
+                      query.year + '-' + query.month + '-01'
+                    }) AND reservations.transaction_status = 'complete'
                     ORDER BY rooms."number" ASC 
                     `;
 
-            return {
-                status: 'success',
-                data: reservations,
-            };
-        } else {
-            const reservations = await sql`SELECT
+      return {
+        status: 'success',
+        data: reservations,
+      };
+    } else {
+      const reservations = await sql`SELECT
             reservations.id AS reservations_id,
             customer_id,
             customer_details.first_name,
@@ -103,17 +103,17 @@ export const reservationRoute = new Elysia({ prefix: '/reservations' }).get(
             INNER JOIN room_types ON rooms.type_id = room_types."id"
             INNER JOIN customer_details ON reservations.customer_id = customer_details.ID 
             WHERE (check_in <= ${
-                query.year + '-' + query.month + '-31'
+              query.year + '-' + query.month + '-31'
             } AND check_out >= ${
-                query.year + '-' + query.month + '-01'
+              query.year + '-' + query.month + '-01'
             }) AND reservations.transaction_status = 'complete'  AND SIMILARITY(customer_details.first_name || ' ' || customer_details.last_name, ${fullname}) > 0.2
             ORDER BY rooms."number" ASC 
             `;
 
-            return {
-                status: 'success',
-                data: reservations,
-            };
-        }
+      return {
+        status: 'success',
+        data: reservations,
+      };
     }
+  }
 );

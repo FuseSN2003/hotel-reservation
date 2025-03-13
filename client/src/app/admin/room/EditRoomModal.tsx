@@ -1,4 +1,6 @@
-import { Button } from "@/components/ui/button";
+'use client';
+
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -6,11 +8,11 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+} from '@/components/ui/dialog';
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Form,
   FormControl,
@@ -18,21 +20,20 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { useRouter } from "next/navigation";
-import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
-import { RoomSchema, RoomValues } from "@/lib/validation";
-import { toast } from "sonner";
-import { Loader2 } from "lucide-react";
-import { getBackendURL } from "@/lib/getBackendURL";
+} from '@/components/ui/select';
+import { useRouter } from 'next/navigation';
+import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
+import { RoomSchema, RoomValues } from '@/lib/validation';
+import { toast } from 'sonner';
+import { Loader2 } from 'lucide-react';
 
 interface EditRoomModalProps {
   roomId: string;
@@ -40,12 +41,16 @@ interface EditRoomModalProps {
   roomTypeName: string;
 }
 
-export default function EditRoomModal({ roomId, roomNumber, roomTypeName }: EditRoomModalProps) {
+export default function EditRoomModal({
+  roomId,
+  roomNumber,
+  roomTypeName,
+}: EditRoomModalProps) {
   const form = useForm<RoomValues>({
     resolver: zodResolver(RoomSchema),
     defaultValues: {
       number: roomNumber,
-      type_id: "",
+      type_id: '',
     },
   });
 
@@ -58,21 +63,21 @@ export default function EditRoomModal({ roomId, roomNumber, roomTypeName }: Edit
     try {
       setIsLoading(true);
       const res = await fetch(
-        `${getBackendURL()}/admin/rooms/${roomId}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/admin/rooms/${roomId}`,
         {
-          method: "PUT",
-          credentials: "include",
+          method: 'PUT',
+          credentials: 'include',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify(values),
         }
       );
-  
+
       const data = await res.json();
       setIsLoading(false);
 
-      if (data.status === "success") {
+      if (data.status === 'success') {
         toast.success(data.message);
         router.refresh();
         setIsModalOpen(false);
@@ -81,23 +86,28 @@ export default function EditRoomModal({ roomId, roomNumber, roomTypeName }: Edit
       }
     } catch {
       setIsLoading(false);
-      toast.error("An error occurred.");
+      toast.error('An error occurred.');
     }
   };
 
   useEffect(() => {
     async function fetchTypeRoom() {
       const res = await fetch(
-        `${getBackendURL()}/admin/room-types`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/admin/room-types`,
         {
-          credentials: "include",
+          credentials: 'include',
         }
       );
       const data = await res.json();
 
-      if (data.status === "success") {
+      if (data.status === 'success') {
         setRoomType(data.data);
-        form.setValue("type_id", data.data.find((type: { id: string, name: string }) => type.name === roomTypeName).id);
+        form.setValue(
+          'type_id',
+          data.data.find(
+            (type: { id: string; name: string }) => type.name === roomTypeName
+          ).id
+        );
       }
     }
 
@@ -108,7 +118,9 @@ export default function EditRoomModal({ roomId, roomNumber, roomTypeName }: Edit
     <>
       <Dialog onOpenChange={setIsModalOpen} open={isModalOpen}>
         <DialogTrigger asChild>
-          <DropdownMenuItem onSelect={(e) => e.preventDefault()}>Edit</DropdownMenuItem>
+          <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+            Edit
+          </DropdownMenuItem>
         </DialogTrigger>
         <DialogContent className="w-full max-w-xs">
           <DialogHeader>
@@ -128,7 +140,11 @@ export default function EditRoomModal({ roomId, roomNumber, roomTypeName }: Edit
                     <FormItem>
                       <FormLabel>Room Number</FormLabel>
                       <FormControl>
-                        <Input type="number" placeholder="Room number" {...field} />
+                        <Input
+                          type="number"
+                          placeholder="Room number"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -163,11 +179,15 @@ export default function EditRoomModal({ roomId, roomNumber, roomTypeName }: Edit
                   )}
                 />
                 <Button disabled={isLoading} type="submit" className="w-full">
-                  {isLoading ? <Loader2 className="animate-spin"/> : "Edit"}
+                  {isLoading ? <Loader2 className="animate-spin" /> : 'Edit'}
                 </Button>
               </form>
             </Form>
-            <Button className="w-full mt-2" variant="outline" onClick={() => setIsModalOpen(false)}>
+            <Button
+              className="w-full mt-2"
+              variant="outline"
+              onClick={() => setIsModalOpen(false)}
+            >
               Cancel
             </Button>
           </div>

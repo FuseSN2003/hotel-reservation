@@ -13,89 +13,89 @@ import Step4 from './components/step-4-confimation';
 import './landing.css';
 
 export default function Page() {
-   return (
-      <>
-         <ReservationProvider>
-            <Child />
-         </ReservationProvider>
-      </>
-   );
+  return (
+    <>
+      <ReservationProvider>
+        <Child />
+      </ReservationProvider>
+    </>
+  );
 }
 
 function Child() {
-   const { information, state, setState } = useContext(ReservationContext);
-   const { reservationId } = information;
+  const { information, state, setState } = useContext(ReservationContext);
+  const { reservationId } = information;
 
-   // 5 minutes
-   const timer = 5 * 60 * 1000;
+  // 5 minutes
+  const timer = 5 * 60 * 1000;
 
-   let userTimeout = setTimeout(() => {
+  let userTimeout = setTimeout(() => {
+    if (state != 1) {
+      if (reservationId) {
+        removeReserveRecord(reservationId);
+      }
+
+      alert('You have been inactive for 5 minutes. Please start over.');
+      setState(1);
+    }
+  }, timer);
+
+  const resetTimer = () => {
+    clearTimeout(userTimeout);
+
+    userTimeout = setTimeout(() => {
       if (state != 1) {
-         if (reservationId) {
-            removeReserveRecord(reservationId);
-         }
+        if (reservationId) {
+          removeReserveRecord(reservationId);
+        }
 
-         alert('You have been inactive for 5 minutes. Please start over.');
-         setState(1);
+        alert('You have been inactive for 5 minutes. Please start over.');
+        setState(1);
       }
-   }, timer);
+    }, timer);
+  };
 
-   const resetTimer = () => {
-      clearTimeout(userTimeout);
+  const events = ['mousemove', 'keydown'];
 
-      userTimeout = setTimeout(() => {
-         if (state != 1) {
-            if (reservationId) {
-               removeReserveRecord(reservationId);
-            }
+  events.forEach((event) => {
+    if (typeof window !== 'undefined') {
+      window.addEventListener(event, () => {
+        resetTimer();
+      });
+    }
+  });
 
-            alert('You have been inactive for 5 minutes. Please start over.');
-            setState(1);
-         }
-      }, timer);
-   };
+  useEffect(() => {
+    document.documentElement.scrollTop = 0;
+  }, [state]);
 
-   const events = ['mousemove', 'keydown'];
+  return (
+    <>
+      {state == 1 && (
+        <div id="page1">
+          <LandingPage />
+        </div>
+      )}
 
-   events.forEach((event) => {
-      if(typeof window !== "undefined") {
-         window.addEventListener(event, () => {
-            resetTimer();
-         });
-      }
-   });
+      {state == 2 && (
+        <div id="page2">
+          <Step2 />
+        </div>
+      )}
 
-   useEffect(() => {
-      document.documentElement.scrollTop = 0;
-   }, [state]);
+      {state == 3 && (
+        <div id="page3" className="w-full mx-auto max-w-fit p-4">
+          <Step3 />
+        </div>
+      )}
 
-   return (
-      <>
-         {state == 1 && (
-            <div id="page1">
-               <LandingPage />
-            </div>
-         )}
+      {state == 4 && (
+        <div id="page4" className="w-full mx-auto max-w-fit p-4">
+          <Step4 />
+        </div>
+      )}
 
-         {state == 2 && (
-            <div id="page2">
-               <Step2 />
-            </div>
-         )}
-
-         {state == 3 && (
-            <div id="page3" className="w-full mx-auto max-w-fit p-4">
-               <Step3 />
-            </div>
-         )}
-
-         {state == 4 && (
-            <div id="page4" className="w-full mx-auto max-w-fit p-4">
-               <Step4 />
-            </div>
-         )}
-
-         {state == 3 || state == 4 ? <ConclusionBar /> : ''}
-      </>
-   );
+      {state == 3 || state == 4 ? <ConclusionBar /> : ''}
+    </>
+  );
 }

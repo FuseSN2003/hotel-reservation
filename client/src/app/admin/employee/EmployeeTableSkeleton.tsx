@@ -1,4 +1,10 @@
-import { Table, TableBody, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 
 export default function EmployeeTableSkeleton() {
   return (
@@ -34,5 +40,5 @@ export default function EmployeeTableSkeleton() {
         ))}
       </TableBody>
     </Table>
-  )
+  );
 }

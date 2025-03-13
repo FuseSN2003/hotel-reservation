@@ -1,4 +1,4 @@
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from '@/components/ui/skeleton';
 import {
   Table,
   TableBody,
@@ -6,7 +6,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from '@/components/ui/table';
 
 export default function RoomTableSkeleton() {
   return (
@@ -39,8 +39,7 @@ export default function RoomTableSkeleton() {
               <TableCell>
                 <Skeleton className="w-28 h-6" />
               </TableCell>
-              <TableCell>
-              </TableCell>
+              <TableCell></TableCell>
             </TableRow>
           ))}
         </TableBody>

@@ -1,14 +1,24 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { RoomType } from "@/lib/type";
-import { MoreHorizontal } from "lucide-react";
-import Image from "next/image";
-import DeleteRoomTypeModal from "./DeleteRoomTypeModal";
-import EditRoomTypeModal from "./EditRoomTypeModal";
-import { getBackendURL } from "@/lib/getBackendURL";
+import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import { RoomType } from '@/lib/type';
+import { MoreHorizontal } from 'lucide-react';
+import Image from 'next/image';
+import DeleteRoomTypeModal from './DeleteRoomTypeModal';
+import EditRoomTypeModal from './EditRoomTypeModal';
 
 interface RoomTypeTableClientProps {
   roomTypes: RoomType[];
@@ -35,7 +45,7 @@ export default function RoomTypeTableClient({
               <TableCell>
                 <div className="flex items-center gap-2">
                   <Image
-                    src={`http://localhost:3001${roomType.picture_path}`}
+                    src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${roomType.picture_path}`}
                     alt={`${roomType.name}`}
                     className="w-48 aspect-video"
                     unoptimized
@@ -43,7 +53,9 @@ export default function RoomTypeTableClient({
                   />
                 </div>
               </TableCell>
-              <TableCell className="break-all">{roomType.name}: {roomType.detail}</TableCell>
+              <TableCell className="break-all">
+                {roomType.name}: {roomType.detail}
+              </TableCell>
               <TableCell>{roomType.price}฿/night</TableCell>
               <TableCell>{roomType.capacity}</TableCell>
               <TableCell>
@@ -55,7 +67,7 @@ export default function RoomTypeTableClient({
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
-                    <EditRoomTypeModal roomType={roomType}/>
+                    <EditRoomTypeModal roomType={roomType} />
                     <DeleteRoomTypeModal roomTypeId={roomType.id} />
                   </DropdownMenuContent>
                 </DropdownMenu>

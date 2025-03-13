@@ -1,9 +1,8 @@
-import { formatCurrency } from "@/lib/utils";
-import { BedSingle, Coins, NotepadText, UserRound } from "lucide-react";
-import { headers } from "next/headers";
-import React from 'react'
-import RevenueChart from "./RevenueChart";
-import { getBackendURL } from "@/lib/getBackendURL";
+import { formatCurrency } from '@/lib/utils';
+import { BedSingle, Coins, NotepadText, UserRound } from 'lucide-react';
+import { headers } from 'next/headers';
+import React from 'react';
+import RevenueChart from './RevenueChart';
 
 interface DashboardData {
   totalBooking: number;
@@ -12,23 +11,20 @@ interface DashboardData {
   availableRoom: number;
   soldOutRoom: number;
   offMarketRoom: number;
-  revenuePerMonth: {month: string, sum: number }[]
+  revenuePerMonth: { month: string; sum: number }[];
 }
 
 async function getDashboardData(): Promise<
-  | { status: "error"; message: string }
+  | { status: 'error'; message: string }
   | {
-      status: "success";
+      status: 'success';
       data: DashboardData;
     }
 > {
-  const res = await fetch(
-    `${getBackendURL()}/admin/dashboard`,
-    {
-      headers: headers(),
-      cache: "no-store"
-    }
-  );
+  const res = await fetch(`${process.env.BACKEND_URL}/admin/dashboard`, {
+    headers: headers(),
+    cache: 'no-store',
+  });
 
   const data = await res.json();
 
@@ -39,7 +35,7 @@ export default async function DashboardContent() {
   const result = await getDashboardData();
   return (
     <>
-      {result.status === "success" ? (
+      {result.status === 'success' ? (
         <div className="flex flex-col gap-8">
           <div className="w-full grid grid-cols-3 gap-10">
             <div className="flex items-center bg-background p-8 border shadow gap-4">
@@ -56,7 +52,9 @@ export default async function DashboardContent() {
                 <Coins size={32} />
               </div>
               <div>
-                <p className="font-bold text-xl">{formatCurrency(result.data.totalRevenue)}</p>
+                <p className="font-bold text-xl">
+                  {formatCurrency(result.data.totalRevenue)}
+                </p>
                 <p>total revenue</p>
               </div>
             </div>
@@ -82,7 +80,9 @@ export default async function DashboardContent() {
                   <BedSingle size={32} />
                 </div>
                 <div>
-                  <p className="font-bold text-xl">{result.data.availableRoom}</p>
+                  <p className="font-bold text-xl">
+                    {result.data.availableRoom}
+                  </p>
                   <p>available room</p>
                 </div>
               </div>
@@ -100,7 +100,9 @@ export default async function DashboardContent() {
                   <BedSingle size={32} />
                 </div>
                 <div>
-                  <p className="font-bold text-xl">{result.data.offMarketRoom}</p>
+                  <p className="font-bold text-xl">
+                    {result.data.offMarketRoom}
+                  </p>
                   <p>off market</p>
                 </div>
               </div>
@@ -111,5 +113,5 @@ export default async function DashboardContent() {
         <p>{result.message}</p>
       )}
     </>
-  )
+  );
 }

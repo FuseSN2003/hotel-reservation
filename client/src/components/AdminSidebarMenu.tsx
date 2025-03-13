@@ -1,12 +1,11 @@
-"use client";
+'use client';
 
-import { getBackendURL } from "@/lib/getBackendURL";
-import { adminMenu } from "@/lib/menu";
-import { cn } from "@/lib/utils";
-import { LogOut } from "lucide-react";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { toast } from "sonner";
+import { adminMenu } from '@/lib/menu';
+import { cn } from '@/lib/utils';
+import { LogOut } from 'lucide-react';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 export default function AdminSidebarMenu() {
   const pathname = usePathname();
@@ -14,32 +13,38 @@ export default function AdminSidebarMenu() {
 
   const handleLogout = async () => {
     try {
-      const res = await fetch(`${getBackendURL()}/auth/logout`, {
-        credentials: "include",
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/logout`,
+        {
+          credentials: 'include',
+        }
+      );
 
       const data = await res.json();
 
-      if(data.status === "success") {
-        toast.success("Logged out successfully.");
-        localStorage.removeItem("token");
+      if (data.status === 'success') {
+        toast.success('Logged out successfully.');
+        localStorage.removeItem('token');
         router.refresh();
-        router.push("/");
+        router.push('/');
       } else {
         toast.error(data.message);
       }
     } catch {
-      toast.error("An error occurred.");
+      toast.error('An error occurred.');
     }
-  }
+  };
 
   return (
     <div className="flex flex-col gap-6 mt-20">
       {adminMenu.map((menu, idx) => (
         <Link
           className={cn(
-            "text-foreground text-lg font-semibold flex items-center gap-2 hover:text-primary transition-colors", {
-              "text-primary": pathname.split("/")[2] === menu.href.split("/")[2] && menu.href !== "/frontdesk",
+            'text-foreground text-lg font-semibold flex items-center gap-2 hover:text-primary transition-colors',
+            {
+              'text-primary':
+                pathname.split('/')[2] === menu.href.split('/')[2] &&
+                menu.href !== '/frontdesk',
             }
           )}
           href={menu.href}
@@ -48,9 +53,12 @@ export default function AdminSidebarMenu() {
           <menu.icon /> {menu.label}
         </Link>
       ))}
-      <div onClick={handleLogout} className="hover:cursor-pointer text-destructive text-lg font-semibold flex items-center gap-2 hover:text-destructive transition-colors">
-          <LogOut /> Logout
-        </div>
+      <div
+        onClick={handleLogout}
+        className="hover:cursor-pointer text-destructive text-lg font-semibold flex items-center gap-2 hover:text-destructive transition-colors"
+      >
+        <LogOut /> Logout
+      </div>
     </div>
   );
 }

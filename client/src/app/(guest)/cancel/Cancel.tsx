@@ -1,18 +1,17 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { Button } from '@/components/ui/button';
+import { removeReserveRecord } from '@/lib/delete-reserve';
 import { X } from 'lucide-react';
-import { useEffect } from "react";
-import { removeReserveRecord } from "@/lib/delete-reserve";
-import { useSearchParams } from "next/navigation";
+import Link from 'next/link';
+import { useEffect } from 'react';
 
 interface CancelProps {
   reservationId: string;
 }
 
 export default function Cancel({ reservationId }: CancelProps) {
-  const customerServiceEmail = "mokmaard646@gmail.com";
+  const customerServiceEmail = 'mokmaard646@gmail.com';
 
   useEffect(() => {
     if (reservationId) {
@@ -30,10 +29,21 @@ export default function Cancel({ reservationId }: CancelProps) {
                           items-center justify-center
                           gap-8"
           >
-            <X className="w-96 h-96 text-red-400"/>
+            <X className="w-96 h-96 text-red-400" />
             <div className="text-center">
-              <h1 className="text-xl font-bold">Your reservation is already canceled.</h1>
-              <p>Any problem please contact: <a href={`mailto:${customerServiceEmail}`} className="underline text-primary font-black">Customer Service Email.</a>.</p>
+              <h1 className="text-xl font-bold">
+                Your reservation is already canceled.
+              </h1>
+              <p>
+                Any problem please contact:{' '}
+                <a
+                  href={`mailto:${customerServiceEmail}`}
+                  className="underline text-primary font-black"
+                >
+                  Customer Service Email.
+                </a>
+                .
+              </p>
             </div>
             <Link href="/">
               <Button

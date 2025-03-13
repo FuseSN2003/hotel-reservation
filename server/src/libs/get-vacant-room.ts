@@ -1,5 +1,5 @@
-import { sql } from "./db";
-import { getDiffDate } from "./get-diff-date";
+import { sql } from './db';
+import { getDiffDate } from './get-diff-date';
 
 type Arguements = {
   type_id: string;
@@ -7,7 +7,11 @@ type Arguements = {
   check_out: Date;
 };
 
-export default async function getVacantRoom({type_id, check_in, check_out} : Arguements) {
+export default async function getVacantRoom({
+  type_id,
+  check_in,
+  check_out,
+}: Arguements) {
   const diffDate = getDiffDate(new Date(check_in), new Date(check_out));
 
   const [res] = await sql`

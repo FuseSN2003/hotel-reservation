@@ -1,13 +1,13 @@
 import Cancel from './Cancel';
 
 export default function CancelPage({
-   searchParams,
+  searchParams,
 }: {
-   searchParams: { reservationId: string };
+  searchParams: { reservationId: string };
 }) {
-   if (!searchParams.reservationId) {
-      return <></>;
-   }
+  if (!searchParams.reservationId) {
+    return <></>;
+  }
 
-   return <Cancel reservationId={searchParams.reservationId} />;
+  return <Cancel reservationId={searchParams.reservationId} />;
 }

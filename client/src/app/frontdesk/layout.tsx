@@ -1,13 +1,15 @@
 import './frontdesk.css';
 
 export default function FrontdeskLayout({
-   children,
+  children,
 }: Readonly<{
-   children: React.ReactNode;
+  children: React.ReactNode;
 }>) {
-   return (
-      <>
-         <div className='min-h-screen' id="body">{children}</div>
-      </>
-   );
+  return (
+    <>
+      <div className="min-h-screen" id="body">
+        {children}
+      </div>
+    </>
+  );
 }

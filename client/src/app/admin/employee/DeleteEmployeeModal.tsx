@@ -1,3 +1,5 @@
+'use client';
+
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -6,21 +8,22 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger
-} from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
-import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
-import { getBackendURL } from "@/lib/getBackendURL";
-import { Loader2 } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { toast } from "sonner";
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
+import { Button } from '@/components/ui/button';
+import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
+import { Loader2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { toast } from 'sonner';
 
 interface DeleteEmployeeModalProps {
   employeeId: string;
 }
 
-export default function DeleteEmployeeModal({ employeeId }: DeleteEmployeeModalProps) {
+export default function DeleteEmployeeModal({
+  employeeId,
+}: DeleteEmployeeModalProps) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -28,16 +31,17 @@ export default function DeleteEmployeeModal({ employeeId }: DeleteEmployeeModalP
     try {
       setIsLoading(true);
       const res = await fetch(
-        `${getBackendURL()}/admin/employees/${employeeId}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/admin/employees/${employeeId}`,
         {
-          method: "DELETE",
-          credentials: "include",
+          method: 'DELETE',
+          credentials: 'include',
         }
       );
-  
+
       const data = await res.json();
 
-      if (data.status === "success") {
+      setIsLoading(false);
+      if (data.status === 'success') {
         toast.success(data.message);
         router.refresh();
       } else {
@@ -45,7 +49,7 @@ export default function DeleteEmployeeModal({ employeeId }: DeleteEmployeeModalP
       }
     } catch {
       setIsLoading(false);
-      toast.error("An error occurred.");
+      toast.error('An error occurred.');
     }
   };
 
@@ -65,8 +69,12 @@ export default function DeleteEmployeeModal({ employeeId }: DeleteEmployeeModalP
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>{isLoading ? <Loader2 className="animate-spin" /> : `Delete` }</AlertDialogCancel>
-            <Button variant="destructive" onClick={handleDeleteRoom}>Delete</Button>
+            <AlertDialogCancel>
+              {isLoading ? <Loader2 className="animate-spin" /> : `Delete`}
+            </AlertDialogCancel>
+            <Button variant="destructive" onClick={handleDeleteRoom}>
+              Delete
+            </Button>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

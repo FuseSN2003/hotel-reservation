@@ -2,9 +2,9 @@ import { sql } from '@/libs/db';
 import Elysia from 'elysia';
 
 export const customerRoutes = new Elysia({ prefix: '/customers' }).get(
-    '/',
-    async () => {
-        const customers = await sql`SELECT
+  '/',
+  async () => {
+    const customers = await sql`SELECT
                                 	FIRST_NAME,
                                 	LAST_NAME,
                                 	ADDRESS,
@@ -37,9 +37,9 @@ export const customerRoutes = new Elysia({ prefix: '/customers' }).get(
                                 		FROM
                                 			SUB_DISTRICTS
                                 	) SUB_DISTRICTS ON CUSTOMER_DETAILS.SUB_DISTRICT_ID = SUB_DISTRICTS.ID;`;
-        return {
-            status: 'success',
-            data: customers,
-        };
-    }
+    return {
+      status: 'success',
+      data: customers,
+    };
+  }
 );

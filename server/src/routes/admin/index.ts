@@ -6,9 +6,9 @@ import { customerRoutes } from './customer';
 import { dashboardRoutes } from './dashboard';
 
 export const adminRoutes = new Elysia({ prefix: '/admin' })
-    .use(roomTypeRoutes)
-    .use(employeeRoutes)
-    .use(resetPasswordRoutes)
-    .use(roomRoutes)
-    .use(dashboardRoutes)
-    .use(customerRoutes);
+  .use(roomTypeRoutes)
+  .use(employeeRoutes)
+  .use(resetPasswordRoutes)
+  .use(roomRoutes)
+  .use(dashboardRoutes)
+  .use(customerRoutes);

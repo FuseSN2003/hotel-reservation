@@ -1,5 +1,7 @@
-import ImagePlaceholder from "@/assets/image-square-placeholder.png";
-import { Button } from "@/components/ui/button";
+'use client';
+
+import ImagePlaceholder from '@/assets/image-square-placeholder.png';
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -7,35 +9,37 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
+} from '@/components/ui/dialog';
+import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { getBackendURL } from "@/lib/getBackendURL";
-import { Employee, employeeRole } from "@/lib/type";
-import { formatDate } from "@/lib/utils";
-import { EditAccountEmployeeSchema, EditAccountEmployeeValues } from "@/lib/validation";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2 } from "lucide-react";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useRef, useState } from "react";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
+} from '@/components/ui/select';
+import { Employee, employeeRole } from '@/lib/type';
+import { formatDate } from '@/lib/utils';
+import {
+  EditAccountEmployeeSchema,
+  EditAccountEmployeeValues,
+} from '@/lib/validation';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Loader2 } from 'lucide-react';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useRef, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
 interface EditAccountModalprops {
   employee: Employee;
@@ -59,7 +63,7 @@ export default function EditAccountModal({ employee }: EditAccountModalprops) {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState<string>(
-    `${getBackendURL()}${employee.profile_picture}`
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}${employee.profile_picture}`
   );
   const [isLoading, setIsLoading] = useState(false);
 
@@ -67,23 +71,23 @@ export default function EditAccountModal({ employee }: EditAccountModalprops) {
     if (!formRef.current) return;
 
     const formData = new FormData(formRef.current);
-    formData.append("role", form.getValues("role"));
+    formData.append('role', form.getValues('role'));
 
     setIsLoading(true);
     try {
       const res = await fetch(
-        `${getBackendURL()}/admin/employees/${employee.id}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/admin/employees/${employee.id}`,
         {
-          method: "PUT",
-          credentials: "include",
+          method: 'PUT',
+          credentials: 'include',
           body: formData,
         }
       );
-  
+
       const data = await res.json();
       setIsLoading(false);
 
-      if (data.status === "success") {
+      if (data.status === 'success') {
         toast.success(data.message);
         router.refresh();
         setIsModalOpen(false);
@@ -92,7 +96,7 @@ export default function EditAccountModal({ employee }: EditAccountModalprops) {
       }
     } catch (e) {
       setIsLoading(false);
-      toast.error("An error occurred.");
+      toast.error('An error occurred.');
     }
   };
 
@@ -100,7 +104,9 @@ export default function EditAccountModal({ employee }: EditAccountModalprops) {
     <>
       <Dialog onOpenChange={setIsModalOpen} open={isModalOpen}>
         <DialogTrigger asChild>
-          <DropdownMenuItem onSelect={(e) => e.preventDefault()}>Edit</DropdownMenuItem>
+          <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+            Edit
+          </DropdownMenuItem>
         </DialogTrigger>
         <DialogContent className="w-full max-w-2xl">
           <DialogHeader>
@@ -119,7 +125,9 @@ export default function EditAccountModal({ employee }: EditAccountModalprops) {
                 <div className="space-y-2">
                   <Label>{`Employee's Picture`}</Label>
                   <Image
-                    src={employee.profile_picture ? previewImage : ImagePlaceholder}
+                    src={
+                      employee.profile_picture ? previewImage : ImagePlaceholder
+                    }
                     alt="Room type image"
                     width={0}
                     height={0}
@@ -238,7 +246,9 @@ export default function EditAccountModal({ employee }: EditAccountModalprops) {
                           <SelectContent>
                             {employeeRole.map((role, idx) => (
                               <SelectItem value={role} key={idx}>
-                                {role.replaceAll("_", " ").replace(/\b\w/g, (c) => c.toUpperCase())}
+                                {role
+                                  .replaceAll('_', ' ')
+                                  .replace(/\b\w/g, (c) => c.toUpperCase())}
                               </SelectItem>
                             ))}
                           </SelectContent>
@@ -248,9 +258,14 @@ export default function EditAccountModal({ employee }: EditAccountModalprops) {
                     )}
                   />
                   <Button className="w-full" type="submit">
-                    {isLoading ? <Loader2 className="animate-spin"/> : "Save"}
+                    {isLoading ? <Loader2 className="animate-spin" /> : 'Save'}
                   </Button>
-                  <Button type="button" onClick={() => setIsModalOpen(false)} variant="outline" className="w-full">
+                  <Button
+                    type="button"
+                    onClick={() => setIsModalOpen(false)}
+                    variant="outline"
+                    className="w-full"
+                  >
                     Cancel
                   </Button>
                 </div>

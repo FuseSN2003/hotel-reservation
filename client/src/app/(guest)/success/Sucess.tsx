@@ -1,30 +1,29 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { useQueryClient } from "@tanstack/react-query";
-import { Check } from "lucide-react";
-import Link from "next/link";
-import { useEffect } from "react";
+import { Button } from '@/components/ui/button';
+import { useQueryClient } from '@tanstack/react-query';
+import { Check } from 'lucide-react';
+import Link from 'next/link';
+import { useEffect } from 'react';
 
 interface SuccessProps {
   email: string;
 }
 
 export default function Success({ email }: SuccessProps) {
-
   const queryClient = useQueryClient();
-   useEffect(() => {
-      queryClient.invalidateQueries({
-         queryKey: ['rooms'],
-      });
-      queryClient.invalidateQueries({
-         queryKey: ['reservations'],
-      });
-      queryClient.invalidateQueries({
-         queryKey: ['roomTypes'],
-      });
-   });
-   
+  useEffect(() => {
+    queryClient.invalidateQueries({
+      queryKey: ['rooms'],
+    });
+    queryClient.invalidateQueries({
+      queryKey: ['reservations'],
+    });
+    queryClient.invalidateQueries({
+      queryKey: ['roomTypes'],
+    });
+  });
+
   return (
     <>
       <div className="w-full flex justify-center">
@@ -35,10 +34,13 @@ export default function Success({ email }: SuccessProps) {
                         items-center justify-center
                         gap-8"
           >
-            <Check className="w-96 h-96 text-green-400"/>
+            <Check className="w-96 h-96 text-green-400" />
             <div className="text-center">
               <h1 className="text-xl font-bold">You are all set.</h1>
-              <p>The reservation has send to your email address name <span className="font-black text-primary">{email}</span>,</p>
+              <p>
+                The reservation has send to your email address name{' '}
+                <span className="font-black text-primary">{email}</span>,
+              </p>
               <p>please check your email for more details.</p>
             </div>
             <Link href="/">

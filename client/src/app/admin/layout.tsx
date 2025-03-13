@@ -1,8 +1,8 @@
-import AdminHeader from "@/components/AdminHeader";
-import AdminSidebarMenu from "@/components/AdminSidebarMenu";
-import Image from "next/image";
-import Link from "next/link";
-import Logo from "@/assets/logo.png";
+import AdminHeader from '@/components/AdminHeader';
+import AdminSidebarMenu from '@/components/AdminSidebarMenu';
+import Image from 'next/image';
+import Link from 'next/link';
+import Logo from '@/assets/logo.png';
 
 export default function AdminLayout({
   children,

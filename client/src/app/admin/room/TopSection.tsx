@@ -1,19 +1,19 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { roomStatus } from "@/lib/utils";
-import { ChevronDown } from "lucide-react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import React, { useState } from "react";
-import { SearchInput } from "../SearchInput";
-import AddRoomModal from "./AddRoomModal";
-import AddRoomTypeModal from "./AddRoomTypeModal";
+} from '@/components/ui/dropdown-menu';
+import { roomStatus } from '@/lib/utils';
+import { ChevronDown } from 'lucide-react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import React, { useState } from 'react';
+import { SearchInput } from '../SearchInput';
+import AddRoomModal from './AddRoomModal';
+import AddRoomTypeModal from './AddRoomTypeModal';
 
 export function RoomTopSection() {
   const searchParams = useSearchParams();
@@ -23,14 +23,14 @@ export function RoomTopSection() {
   const handleFilterStatus = (status: string) => {
     const params = new URLSearchParams(searchParams);
 
-    params.set("status", status);
+    params.set('status', status);
 
     router.replace(`${pathname}?${params.toString()}`);
   };
 
   return (
     <div className="flex justify-between">
-      <SearchInput placeholder="Room number"/>
+      <SearchInput placeholder="Room number" />
       <div className="flex gap-2">
         <AddRoomModal />
         <DropdownMenu>
@@ -45,8 +45,8 @@ export function RoomTopSection() {
                 onClick={() => handleFilterStatus(status)}
                 key={idx}
                 checked={
-                  searchParams.has("status") &&
-                  searchParams.get("status") === status
+                  searchParams.has('status') &&
+                  searchParams.get('status') === status
                 }
               >
                 {status}
@@ -62,7 +62,7 @@ export function RoomTopSection() {
 export function RoomTypeTopSection() {
   return (
     <div className="flex justify-between">
-      <SearchInput placeholder="Room type"/>
+      <SearchInput placeholder="Room type" />
       <div className="flex gap-2">
         <AddRoomTypeModal />
       </div>

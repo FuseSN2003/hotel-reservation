@@ -1,16 +1,16 @@
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/button';
 import {
   formInputs,
   specialRequest,
-} from "@/app/(guest)/model/customer-information";
-import { ReservationContext } from "@/context/ReservationContext";
-import { useContext, useState } from "react";
+} from '@/app/(guest)/model/customer-information';
+import { ReservationContext } from '@/context/ReservationContext';
+import { useContext, useState } from 'react';
 
 class InvalidPatternInfo {
-  errorMessage = "";
+  errorMessage = '';
   isInvalidPattern = false;
 
   constructor(errorMessage: string, isInvalidPattern: boolean) {
@@ -38,7 +38,7 @@ export default function PersonalInformationForm() {
     Array.from(
       { length: formInputs.length },
       (_, index) =>
-        new InvalidPatternInfo(formInputs[index].errorMessage || "", false)
+        new InvalidPatternInfo(formInputs[index].errorMessage || '', false)
     )
   );
   const [canPass, setCanPass] = useState(true);
@@ -95,10 +95,7 @@ export default function PersonalInformationForm() {
     }
   };
 
-  const checkSpecialRequest = (
-    value: string,
-    pattern: string,
-  ) => {
+  const checkSpecialRequest = (value: string, pattern: string) => {
     const regex = new RegExp(pattern);
     const newInvalidPatternInfos = [...invalidPatternInfos];
 
@@ -131,7 +128,13 @@ export default function PersonalInformationForm() {
                 {input.label} <span className="text-red-500"> *</span>
               </Label>
 
-              <h1 className={`${invalidPatternInfos[index].isInvalidPattern ? 'text-red-500' : 'text-gray-400' } text-xs font-bold`}>
+              <h1
+                className={`${
+                  invalidPatternInfos[index].isInvalidPattern
+                    ? 'text-red-500'
+                    : 'text-gray-400'
+                } text-xs font-bold`}
+              >
                 {invalidPatternInfos[index].errorMessage}
               </h1>
             </div>
@@ -152,7 +155,7 @@ export default function PersonalInformationForm() {
                 );
               }}
               defaultValue={
-                personalInformation ? personalInformation[input.key] : ""
+                personalInformation ? personalInformation[input.key] : ''
               }
               maxLength={input.max}
               pattern={input.pattern}
@@ -174,8 +177,8 @@ export default function PersonalInformationForm() {
                 <h1
                   className={`${
                     invalidPatternInfos[shiftedIndex].isInvalidPattern
-                      ? "text-red-500"
-                      : "text-gray-400"
+                      ? 'text-red-500'
+                      : 'text-gray-400'
                   } text-xs font-bold`}
                 >
                   {invalidPatternInfos[shiftedIndex].errorMessage}
@@ -198,7 +201,7 @@ export default function PersonalInformationForm() {
                   );
                 }}
                 defaultValue={
-                  personalInformation ? personalInformation[input.key] : ""
+                  personalInformation ? personalInformation[input.key] : ''
                 }
                 maxLength={input.max}
               />
@@ -207,12 +210,14 @@ export default function PersonalInformationForm() {
         })}
         <div className="md:flex-grow md:flex md:flex-col md:my-2 md:gap-2">
           <div className="flex items-center justify-between px-2 mb-2">
-            <Label htmlFor="special-request" className="whitespace-nowrap">Special Requests</Label>
+            <Label htmlFor="special-request" className="whitespace-nowrap">
+              Special Requests
+            </Label>
             <h1
               className={`${
                 invalidPatternInfos[9].isInvalidPattern
-                  ? "text-red-500"
-                  : "text-gray-400"
+                  ? 'text-red-500'
+                  : 'text-gray-400'
               } text-xs font-bold mx-4`}
             >
               {invalidPatternInfos[9].errorMessage}
@@ -223,19 +228,20 @@ export default function PersonalInformationForm() {
             className="md:flex-grow"
             onChange={(e) => {
               setIsChange(true);
-              checkSpecialRequest(
-                e.target.value,
-                specialRequest.pattern,
-              );
+              checkSpecialRequest(e.target.value, specialRequest.pattern);
             }}
             defaultValue={
-              personalInformation ? personalInformation.specialRequests : ""
+              personalInformation ? personalInformation.specialRequests : ''
             }
           />
         </div>
 
-        <Button className={btnClass} type="submit" disabled={!isChange && state == 4}>
-          {state == 4 ? "Confirm Edit" : "Confirm"}
+        <Button
+          className={btnClass}
+          type="submit"
+          disabled={!isChange && state == 4}
+        >
+          {state == 4 ? 'Confirm Edit' : 'Confirm'}
         </Button>
       </div>
     </form>

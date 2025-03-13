@@ -14,41 +14,43 @@ import { stripeRoutes } from './routes/stripe';
 const port = process.env.PORT || 3001;
 
 export const app = new Elysia()
-    .use(swagger())
-    .onError(({ set, error, code }) => {
-        if (error instanceof postgres.PostgresError && error.code == '23505') {
-            if (error.constraint_name == 'room_number_key') {
-                set.status = 400;
-                return {
-                    status: 'error',
-                    message: 'This room number have already used.',
-                };
-            }
-        }
-
-        if (code === 'NOT_FOUND') {
-            return new Response('Not Found :(');
-        }
-        console.error(error);
+  .use(swagger())
+  .onError(({ set, error, code }) => {
+    if (error instanceof postgres.PostgresError && error.code == '23505') {
+      if (error.constraint_name == 'room_number_key') {
+        set.status = 400;
         return {
-            status: 'error',
-            message: 'Internal server error, please try again later',
+          status: 'error',
+          message: 'This room number have already used.',
         };
+      }
+    }
+
+    if (code === 'NOT_FOUND') {
+      return new Response('Not Found :(');
+    }
+    console.error(error);
+    return {
+      status: 'error',
+      message: 'Internal server error, please try again later',
+    };
+  })
+  .use(adminRoutes)
+  .use(frontdeskRoute)
+  .use(fileRoute)
+  .use(guestRoutes)
+  .use(reservationRoute)
+  .use(stripeRoutes)
+  .use(crontab)
+  .use(authRoutes)
+  .use(
+    cors({
+      origin: ['http://localhost:3000'],
+      credentials: true,
     })
-    .use(adminRoutes)
-    .use(frontdeskRoute)
-    .use(fileRoute)
-    .use(guestRoutes)
-    .use(reservationRoute)
-    .use(stripeRoutes)
-    .use(crontab)
-    .use(authRoutes)
-    .use(cors({
-        origin: ['http://localhost:3000'],
-        credentials: true,
-    }))
-    .listen(port);
+  )
+  .listen(port);
 
 console.log(
-    `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
+  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
 );

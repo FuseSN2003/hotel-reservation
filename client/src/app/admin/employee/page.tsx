@@ -1,9 +1,9 @@
-import { Suspense } from "react";
-import EmployeeTable from "./EmployeeTable";
-import TopSection from "./TopSection";
-import { getCurrentUser } from "@/actions/getCurrentUser";
-import { redirect } from "next/navigation";
-import EmployeeTableSkeleton from "./EmployeeTableSkeleton";
+import { Suspense } from 'react';
+import EmployeeTable from './EmployeeTable';
+import TopSection from './TopSection';
+import { getCurrentUser } from '@/actions/getCurrentUser';
+import { redirect } from 'next/navigation';
+import EmployeeTableSkeleton from './EmployeeTableSkeleton';
 
 export default async function EmployeePage({
   searchParams,
@@ -12,11 +12,11 @@ export default async function EmployeePage({
 }) {
   const { user } = await getCurrentUser();
 
-  if(!user || user.role !== "administrator") {
-    redirect("/");
+  if (!user || user.role !== 'administrator') {
+    redirect('/');
   }
 
-  const q = searchParams?.q || "";
+  const q = searchParams?.q || '';
 
   return (
     <div className="bg-background w-full h-full rounded-md shadow-md border p-8">

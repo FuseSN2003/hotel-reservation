@@ -1,18 +1,18 @@
-import Image from "next/image";
-import logo from "@/assets/logo.png";
-import LoginForm from "./LoginForm";
-import { getCurrentUser } from "@/actions/getCurrentUser";
-import { redirect } from "next/navigation";
+import Image from 'next/image';
+import logo from '@/assets/logo.png';
+import LoginForm from './LoginForm';
+import { getCurrentUser } from '@/actions/getCurrentUser';
+import { redirect } from 'next/navigation';
 
 export default async function LoginPage() {
   const { user } = await getCurrentUser();
 
-  if(user) {
-    if(user.role === "administrator") {
-      redirect("/admin");
+  if (user) {
+    if (user.role === 'administrator') {
+      redirect('/admin');
     }
-    if(user.role === "frontdesk") {
-      redirect("/frontdesk");
+    if (user.role === 'frontdesk') {
+      redirect('/frontdesk');
     }
   }
 

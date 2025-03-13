@@ -1,5 +1,7 @@
-import ImagePlaceholder from "@/assets/image-square-placeholder.png";
-import { Button } from "@/components/ui/button";
+'use client';
+
+import ImagePlaceholder from '@/assets/image-square-placeholder.png';
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -7,7 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from '@/components/ui/dialog';
 import {
   Form,
   FormControl,
@@ -15,28 +17,27 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { getBackendURL } from "@/lib/getBackendURL";
-import { AddRoomTypeSchema, AddRoomTypeValues } from "@/lib/validation";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2 } from "lucide-react";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useRef, useState } from "react";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { AddRoomTypeSchema, AddRoomTypeValues } from '@/lib/validation';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Loader2 } from 'lucide-react';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useRef, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
 export default function AddRoomTypeModal() {
   const form = useForm<AddRoomTypeValues>({
     resolver: zodResolver(AddRoomTypeSchema),
     defaultValues: {
-      name: "",
+      name: '',
       price: 0,
       capacity: 0,
-      detail: "",
+      detail: '',
       image: undefined,
     },
   });
@@ -54,18 +55,18 @@ export default function AddRoomTypeModal() {
     setIsLoading(true);
     try {
       const res = await fetch(
-        `${getBackendURL()}/admin/room-types`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/admin/room-types`,
         {
-          method: "POST",
-          credentials: "include",
+          method: 'POST',
+          credentials: 'include',
           body: formData,
         }
       );
-  
+
       const data = await res.json();
       setIsLoading(false);
 
-      if (data.status === "success") {
+      if (data.status === 'success') {
         form.reset();
         toast.success(data.message);
         router.refresh();
@@ -75,7 +76,7 @@ export default function AddRoomTypeModal() {
       }
     } catch {
       setIsLoading(false);
-      toast.error("An error occurred.");
+      toast.error('An error occurred.');
     }
   };
 
@@ -188,7 +189,11 @@ export default function AddRoomTypeModal() {
                     )}
                   />
                   <Button disabled={isLoading} type="submit" className="w-full">
-                    {isLoading ? <Loader2 className="animate-spin"/> : "Add Room Type"}
+                    {isLoading ? (
+                      <Loader2 className="animate-spin" />
+                    ) : (
+                      'Add Room Type'
+                    )}
                   </Button>
                   <Button
                     type="button"

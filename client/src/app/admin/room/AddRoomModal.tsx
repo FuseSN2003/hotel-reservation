@@ -1,4 +1,6 @@
-import { Button } from "@/components/ui/button";
+'use client';
+
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -6,7 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from '@/components/ui/dialog';
 import {
   Form,
   FormControl,
@@ -14,30 +16,29 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { getBackendURL } from "@/lib/getBackendURL";
-import { RoomSchema, RoomValues } from "@/lib/validation";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2 } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
+} from '@/components/ui/select';
+import { RoomSchema, RoomValues } from '@/lib/validation';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Loader2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
 export default function AddRoomModal() {
   const form = useForm<RoomValues>({
     resolver: zodResolver(RoomSchema),
     defaultValues: {
-      number: "",
-      type_id: "",
+      number: '',
+      type_id: '',
     },
   });
 
@@ -50,21 +51,21 @@ export default function AddRoomModal() {
     setIsLoading(true);
     try {
       const res = await fetch(
-        `${getBackendURL()}/admin/rooms`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/admin/rooms`,
         {
-          method: "POST",
-          credentials: "include",
+          method: 'POST',
+          credentials: 'include',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify(values),
         }
       );
-  
+
       const data = await res.json();
       setIsLoading(false);
 
-      if (data.status === "success") {
+      if (data.status === 'success') {
         form.reset();
         toast.success(data.message);
         router.refresh();
@@ -74,21 +75,21 @@ export default function AddRoomModal() {
       }
     } catch {
       setIsLoading(false);
-      toast.error("An error occurred.");
+      toast.error('An error occurred.');
     }
   };
 
   useEffect(() => {
     async function fetchTypeRoom() {
       const res = await fetch(
-        `${getBackendURL()}/admin/room-types`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/admin/room-types`,
         {
-          credentials: "include",
+          credentials: 'include',
         }
       );
       const data = await res.json();
 
-      if (data.status === "success") {
+      if (data.status === 'success') {
         setRoomType(data.data);
       }
     }
@@ -120,7 +121,11 @@ export default function AddRoomModal() {
                     <FormItem>
                       <FormLabel>Room Number</FormLabel>
                       <FormControl>
-                        <Input type="number" placeholder="Room number" {...field} />
+                        <Input
+                          type="number"
+                          placeholder="Room number"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -138,7 +143,7 @@ export default function AddRoomModal() {
                       >
                         <FormControl>
                           <SelectTrigger className="text-wrap break-all">
-                            <SelectValue placeholder="Room type"/>
+                            <SelectValue placeholder="Room type" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
@@ -155,11 +160,19 @@ export default function AddRoomModal() {
                   )}
                 />
                 <Button disabled={isLoading} type="submit" className="w-full">
-                  {isLoading ? <Loader2 className="animate-spin" /> : "Add Room"}
+                  {isLoading ? (
+                    <Loader2 className="animate-spin" />
+                  ) : (
+                    'Add Room'
+                  )}
                 </Button>
               </form>
             </Form>
-            <Button className="w-full mt-2" variant="outline" onClick={() => setModalIsOpen(false)}>
+            <Button
+              className="w-full mt-2"
+              variant="outline"
+              onClick={() => setModalIsOpen(false)}
+            >
               Cancel
             </Button>
           </div>

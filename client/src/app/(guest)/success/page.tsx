@@ -1,9 +1,9 @@
 import Success from './Sucess';
 
 export default function SuccessPage({
-   searchParams,
+  searchParams,
 }: {
-   searchParams: { email: string };
+  searchParams: { email: string };
 }) {
-   return <Success email={searchParams.email} />;
+  return <Success email={searchParams.email} />;
 }

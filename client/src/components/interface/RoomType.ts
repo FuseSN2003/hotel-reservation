@@ -6,4 +6,4 @@ export type RoomType = {
   picture_path: string;
   type_id: string;
   total_price: string;
-}
+};

@@ -1,46 +1,37 @@
 .fade-transparent {
-    -webkit-mask-image: linear-gradient(black 75%, transparent 100%);
-
+  -webkit-mask-image: linear-gradient(black 75%, transparent 100%);
 }
 
 .fade-transparent-left {
-    -webkit-mask-image: linear-gradient(to left, black 90%, transparent 100%);
-    mask-image: linear-gradient(to left, black 90%, transparent 100%);
-
+  -webkit-mask-image: linear-gradient(to left, black 90%, transparent 100%);
+  mask-image: linear-gradient(to left, black 90%, transparent 100%);
 }
 
 .fade-transparent-right {
-    -webkit-mask-image: linear-gradient(to right, black 90%, transparent 100%);
-    mask-image: linear-gradient(to right, black 90%, transparent 100%);
-
+  -webkit-mask-image: linear-gradient(to right, black 90%, transparent 100%);
+  mask-image: linear-gradient(to right, black 90%, transparent 100%);
 }
 
 @media (min-width: 768px) {
-    .fade-transparent-left {
-        -webkit-mask-image: linear-gradient(to right, black 90%, transparent 100%);
-        mask-image: linear-gradient(to right, black 90%, transparent 100%);
+  .fade-transparent-left {
+    -webkit-mask-image: linear-gradient(to right, black 90%, transparent 100%);
+    mask-image: linear-gradient(to right, black 90%, transparent 100%);
+  }
 
-    }
-
-    .fade-transparent-right {
-        -webkit-mask-image: linear-gradient(to right, black 90%, transparent 100%);
-        mask-image: linear-gradient(to right, black 90%, transparent 100%);
-
-    }
-
+  .fade-transparent-right {
+    -webkit-mask-image: linear-gradient(to right, black 90%, transparent 100%);
+    mask-image: linear-gradient(to right, black 90%, transparent 100%);
+  }
 }
 
 @media (min-width: 1024px) {
-    .fade-transparent-left {
-        -webkit-mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
-        mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
+  .fade-transparent-left {
+    -webkit-mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
+  }
 
-    }
-
-    .fade-transparent-right {
-        -webkit-mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
-        mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
-
-    }
-
+  .fade-transparent-right {
+    -webkit-mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
+  }
 }

@@ -1,3 +1,5 @@
+'use client';
+
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -6,21 +8,22 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger
-} from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
-import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
-import { getBackendURL } from "@/lib/getBackendURL";
-import { Loader2 } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { toast } from "sonner";
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
+import { Button } from '@/components/ui/button';
+import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
+import { Loader2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { toast } from 'sonner';
 
 interface DeleteRoomModalProps {
   roomTypeId: string;
 }
 
-export default function DeleteRoomTypeModal({ roomTypeId }: DeleteRoomModalProps) {
+export default function DeleteRoomTypeModal({
+  roomTypeId,
+}: DeleteRoomModalProps) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -28,17 +31,17 @@ export default function DeleteRoomTypeModal({ roomTypeId }: DeleteRoomModalProps
     try {
       setIsLoading(true);
       const res = await fetch(
-        `${getBackendURL()}/admin/room-types/${roomTypeId}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/admin/room-types/${roomTypeId}`,
         {
-          method: "DELETE",
-          credentials: "include",
+          method: 'DELETE',
+          credentials: 'include',
         }
       );
-  
+
       const data = await res.json();
       setIsLoading(false);
 
-      if (data.status === "success") {
+      if (data.status === 'success') {
         toast.success(data.message);
         router.refresh();
       } else {
@@ -46,7 +49,7 @@ export default function DeleteRoomTypeModal({ roomTypeId }: DeleteRoomModalProps
       }
     } catch {
       setIsLoading(false);
-      toast.error("An error occurred.");
+      toast.error('An error occurred.');
     }
   };
 
@@ -67,8 +70,12 @@ export default function DeleteRoomTypeModal({ roomTypeId }: DeleteRoomModalProps
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <Button disabled={isLoading} variant="destructive" onClick={handleDeleteRoom}>
-              {isLoading ? <Loader2 className="animate-spin" /> : "Delete"}
+            <Button
+              disabled={isLoading}
+              variant="destructive"
+              onClick={handleDeleteRoom}
+            >
+              {isLoading ? <Loader2 className="animate-spin" /> : 'Delete'}
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>

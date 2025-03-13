@@ -4,31 +4,31 @@ const resendKey = process.env.RESEND_KEY;
 const resend = new Resend(resendKey);
 
 export type EmailInformation = {
-    name: string;
-    checkIn: string;
-    checkOut: string;
-    nights: number;
-    roomType: string;
-    cost: string;
-    paymentMethod: string;
-    email: string;
+  name: string;
+  checkIn: string;
+  checkOut: string;
+  nights: number;
+  roomType: string;
+  cost: string;
+  paymentMethod: string;
+  email: string;
 };
 
 export async function sendEmail({
-    name,
-    checkIn,
-    checkOut,
-    nights,
-    roomType,
-    cost,
-    paymentMethod,
-    email,
+  name,
+  checkIn,
+  checkOut,
+  nights,
+  roomType,
+  cost,
+  paymentMethod,
+  email,
 }: EmailInformation) {
-    const { data, error } = await resend.emails.send({
-        from: '[Mof Hotel] <no-reply@mokmaard.space>',
-        to: [email],
-        subject: '[Mof Hotel] Your receipt has been Issued.',
-        html: `
+  const { data, error } = await resend.emails.send({
+    from: '[Mof Hotel] <no-reply@mokmaard.space>',
+    to: [email],
+    subject: '[Mof Hotel] Your receipt has been Issued.',
+    html: `
     <!DOCTYPE html>
     <html lang="en">
     <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
@@ -102,5 +102,5 @@ export async function sendEmail({
         </footer>
     </body>
     </html>`,
-    });
+  });
 }

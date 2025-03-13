@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -8,20 +8,19 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { getBackendURL } from "@/lib/getBackendURL";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2 } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
-import { z } from "zod";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Loader2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
+import { z } from 'zod';
 
 const LoginSchema = z.object({
-  username: z.string().min(1, "Username is required"),
-  password: z.string().min(1, "Password is required"),
+  username: z.string().min(1, 'Username is required'),
+  password: z.string().min(1, 'Password is required'),
 });
 
 type LoginFormValues = z.infer<typeof LoginSchema>;
@@ -30,8 +29,8 @@ export default function LoginForm() {
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
-      username: "",
-      password: "",
+      username: '',
+      password: '',
     },
   });
   const router = useRouter();
@@ -41,12 +40,12 @@ export default function LoginForm() {
     try {
       setIsLoading(true);
       const res = await fetch(
-        `${getBackendURL()}/auth/login`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`,
         {
-          method: "POST",
-          credentials: "include",
+          method: 'POST',
+          credentials: 'include',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify(values),
         }
@@ -55,16 +54,16 @@ export default function LoginForm() {
       const data = await res.json();
 
       setIsLoading(false);
-      if (data.status === "success") {
+      if (data.status === 'success') {
         toast.success(data.message);
-        router.push("/");
+        router.push('/');
       } else {
         toast.error(data.message);
       }
     } catch (error) {
       console.error(error);
       setIsLoading(false);
-      toast.error("An error occurred.");
+      toast.error('An error occurred.');
     }
   };
 
@@ -101,7 +100,7 @@ export default function LoginForm() {
           )}
         />
         <Button disabled={isLoading} className="w-full" type="submit">
-          {isLoading ? <Loader2 className="animate-spin" /> : "Login"}
+          {isLoading ? <Loader2 className="animate-spin" /> : 'Login'}
         </Button>
       </form>
     </Form>
