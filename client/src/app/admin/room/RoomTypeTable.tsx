@@ -12,7 +12,7 @@ async function getRoomTypes(
   });
 
   const res = await fetch(
-    `${process.env.BACKEND_URL}/admin/room-types?${searchParams.toString()}`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/admin/room-types?${searchParams.toString()}`,
     {
       headers: headers(),
       cache: 'no-store',

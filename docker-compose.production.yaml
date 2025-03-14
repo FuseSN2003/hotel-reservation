@@ -11,6 +11,9 @@ services:
       - hotel_network
     volumes:
       - hotel_reservation_db_data:/var/lib/postgresql/data
+    extra_hosts:
+      - "localhost:host-gateway"
+
   adminer:
     container_name: hotel_reservation_adminer
     image: adminer
@@ -20,6 +23,9 @@ services:
       - hotel_network
     depends_on:
       - db
+    extra_hosts:
+      - "localhost:host-gateway"
+
   client:
     container_name: hotel_reservation_client
     build:
@@ -33,6 +39,9 @@ services:
       - ./client/.env
     depends_on:
       - db
+    extra_hosts:
+      - "localhost:host-gateway"
+
   server:
     container_name: hotel_reservation_server
     build:
@@ -46,6 +55,8 @@ services:
       - ./server/.env
     depends_on:
       - db
+    extra_hosts:
+      - "localhost:host-gateway"
 
 volumes:
   hotel_reservation_db_data:

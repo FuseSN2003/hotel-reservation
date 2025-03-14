@@ -7,7 +7,7 @@ import { cache } from 'react';
 export const getCurrentUser = cache(
   async (): Promise<{ user: null } | { user: User }> => {
     try {
-      const res = await fetch(`${process.env.BACKEND_URL}/auth/check-user`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/check-user`, {
         headers: headers(),
       });
 

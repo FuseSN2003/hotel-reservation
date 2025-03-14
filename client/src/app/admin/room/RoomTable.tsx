@@ -13,7 +13,7 @@ async function getRooms(
     status: status.replace(/\s+/g, '_'),
   });
   const res = await fetch(
-    `${process.env.BACKEND_URL}/admin/rooms?${searchParams.toString()}`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/admin/rooms?${searchParams.toString()}`,
     {
       headers: headers(),
       cache: 'no-store',

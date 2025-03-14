@@ -21,7 +21,7 @@ async function getDashboardData(): Promise<
       data: DashboardData;
     }
 > {
-  const res = await fetch(`${process.env.BACKEND_URL}/admin/dashboard`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/admin/dashboard`, {
     headers: headers(),
     cache: 'no-store',
   });

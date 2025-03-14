@@ -12,7 +12,7 @@ async function getEmployees(
   });
 
   const res = await fetch(
-    `${process.env.BACKEND_URL}/admin/employees?${searchParams.toString()}`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/admin/employees?${searchParams.toString()}`,
     {
       headers: headers(),
       cache: 'no-store',
